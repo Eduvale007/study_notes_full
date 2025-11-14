@@ -1,0 +1,199 @@
+{% load static %}
+
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Caderno Digital</title>
+    <link rel="stylesheet" href="{% static 'core/css/core.css'%}">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+
+    <div class="dashboard-container">
+
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Meu Caderno</h2>
+            </div>
+            
+            <button class="btn-new-summary" id="open-modal-btn">
+                <i class="ph ph-plus-circle"></i>
+                Novo Resumo
+            </button>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active"><a href="#" data-filter="Todos"><i class="ph ph-house"></i> Início</a></li>
+                    <li><a href="#" data-filter="Todos"><i class="ph ph-files"></i> Todos os Resumos</a></li>
+                </ul>
+            </nav>
+
+           <div class="sidebar-section">
+                <h3>Disciplinas</h3>
+                <ul id="discipline-list"> <li><a href="#" data-filter="Cálculo"><i class="ph ph-calculator"></i> Cálculo</a></li>
+                    <li><a href="#" data-filter="História"><i class="ph ph-books"></i> História</a></li>
+                    
+                    </ul>
+            </div>
+        
+            <div class="sidebar-footer">
+                <div class="user-profile">
+            <button id="user-avatar-button" class="user-avatar-button">
+                <img src="{% static 'core/img-profile/bookie-acenando.jpg'%}" alt="Foto do Usuário" class="user-avatar" id="user-avatar-img">
+            </button>
+            
+            <a href="{% url 'user_login' %}" class="user-name"> Fazer Login</a>
+        </div>
+                
+                <a href="#" id="logout-btn" class="logout-icon" title="Sair">
+                    <i class="ph ph-sign-out"></i>
+                </a>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+       <main class="main-content">
+        <header class="main-header">
+
+            <button class="menu-toggle-btn" id="menu-toggle-btn">
+                <i class="ph ph-list"></i>
+            </button>
+
+            <div class="search-bar">
+                <input type="search" placeholder="Buscar em meus resumos...">
+                <i class="ph ph-magnifying-glass"></i>
+            </div>
+        </header>
+
+        <div id="welcome-card" class="welcome-card-overlay">
+            <div class="welcome-card-content">
+                <button id="close-welcome-card" class="close-welcome-card-btn">&times;</button>
+                <img id="bookie-image" src="{% static 'core/img/bookie-bem-vindo.png'%}" alt="Mascote Bookie" class="bookie-mascot">
+                <h3 id="welcome-message">Que bom te ter de volta, Usuário!</h3>
+                <p>Seus resumos estão esperando!</p>
+            </div>
+        </div>
+
+        <section class="summaries-grid">
+            <h2>Resumos Recentes</h2>
+            <div class="grid-container">
+    
+  <article class="summary-card card-blue" data-content="Aqui vai o texto completo sobre a Revolução Francesa...">
+        <button class="delete-btn"><i class="ph ph-x"></i></button>
+        <button class="expand-btn"><i class="ph ph-arrows-out"></i></button>
+        <button class="edit-btn"><i class="ph ph-pencil-simple"></i></button> <h4>Revolução Francesa</h4>
+        <span class="card-discipline-dark">História</span>
+    </article>
+
+   
+
+    <article class="summary-card card-purple" data-content="Aqui vai o texto completo sobre Derivadas...">
+        <button class="delete-btn"><i class="ph ph-x"></i></button>
+        <button class="expand-btn"><i class="ph ph-arrows-out"></i></button>
+        <button class="edit-btn"><i class="ph ph-pencil-simple"></i></button> <h4>Derivadas</h4>
+        <span class="card-discipline-dark">Cálculo</span>
+    </article>
+</div>
+        </section>
+    </main>
+
+    </div> 
+
+    <div id="new-summary-modal" class="modal-overlay">
+        <div class="modal-content">
+            <header class="modal-header">
+             <h2 id="summary-modal-title">Criar Novo Resumo</h2>
+                <button class="close-modal-btn" id="close-modal-btn">
+                    <i class="ph ph-x"></i>
+                </button>
+            </header>
+            
+            <form class="modal-form">
+        
+                <div class="form-group">
+                    <label for="summary-title">Título</label>
+                    <div class="input-with-icon">
+                        <i class="ph ph-text-aa"></i>
+                        <input type="text" id="summary-title" placeholder="Ex: Conceitos de Limites">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="summary-discipline">Disciplina</label>
+                    <div class="input-with-icon">
+                        <i class="ph ph-tag"></i>
+                        <input type="text" id="summary-discipline" placeholder="Ex: Cálculo 1">
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="summary-content">Resumo</label>
+                    <textarea id="summary-content" rows="8" placeholder="Digite seu resumo aqui..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Cor do Card</label>
+                    <div class="color-selector">
+                        <input type="radio" id="color-blue" name="card-color" value="card-blue" checked>
+                        <label class="color-option blue" for="color-blue" title="Azul"></label>
+                        
+                        <input type="radio" id="color-green" name="card-color" value="card-green">
+                        <label class="color-option green" for="color-green" title="Verde"></label>
+                        
+                        <input type="radio" id="color-purple" name="card-color" value="card-purple">
+                        <label class="color-option purple" for="color-purple" title="Roxo"></label>
+                        
+                        <input type="radio" id="color-orange" name="card-color" value="card-orange">
+                        <label class="color-option orange" for="color-orange" title="Laranja"></label>
+                    </div>
+                </div>
+                
+<button type="submit" id="summary-submit-btn" class="btn-submit">Salvar Resumo</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="avatar-menu-modal" class="avatar-menu-overlay">
+        <div class="avatar-menu-content">
+            <header class="avatar-menu-header">
+                <h2>Escolha seu avatar</h2>
+                <button id="close-avatar-modal" class="close-avatar-btn">&times;</button>
+            </header>
+<div class="avatar-grid">
+    <img src="{% static 'core/img-profile/bookie-acenando.jpg' %}" alt="Avatar 1" class="avatar-option" data-avatar-src="{% static 'core/img/bookie-acenando.jpg' %}">
+    <img src="{% static 'core/img-profile/bookie-bico.jpg' %}" alt="Avatar 2" class="avatar-option" data-avatar-src="{% static 'core/img/bookie-bico.jpg' %}">
+    <img src="{% static 'core/img-profile/bookie-fofo.jpg' %}" alt="Avatar 3" class="avatar-option" data-avatar-src="{% static 'core/img/bookie-fofo.jpg' %}">
+    <img src="{% static 'core/img-profile/bookie-lendo.jpg' %}" alt="Avatar 4" class="avatar-option" data-avatar-src="{% static 'core/img/bookie-lendo.jpg' %}">
+    <img src="{% static 'core/img-profile/bookie-magica.jpg' %}" alt="Avatar 5" class="avatar-option" data-avatar-src="{% static 'core/img/bookie-magica.jpg' %}">
+    <img src="{% static 'core/img-profile/bookie-pensando.jpg' %}" alt="Avatar 6" class="avatar-option" data-avatar-src="{% static 'core/img/bookie-pensando.jpg' %}">
+</div>
+
+<button id="save-avatar-btn" class="btn-save-avatar">Salvar foto de perfil</button>
+        </div>
+    </div>
+
+    <div id="read-summary-modal" class="read-modal-overlay">
+    <div class="read-modal-content">
+        <header class="read-modal-header">
+            <h2 id="read-modal-title">Título do Resumo</h2>
+            <button id="close-read-modal-btn" class="close-read-modal-btn">&times;</button>
+        </header>
+        <div class="read-modal-body">
+            <p id="read-modal-body-content">Aqui vai o texto...</p>
+        </div>
+    </div>
+</div>
+
+   <script>
+    const staticUrl = "{% static 'core/img/' %}";
+   </script>
+ 
+
+    <script src="{% static 'core/js/core.js'%}"></script>
+</body>
+</html>

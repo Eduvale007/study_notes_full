@@ -1,0 +1,1007 @@
+/* ===== RESET GERAL E FONTES ===== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+    /* Impede a rolagem do body quando o modal estiver aberto */
+}
+
+/* ===== LAYOUT PRINCIPAL DO PAINEL ===== */
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ===== BARRA LATERAL (SIDEBAR) ===== */
+.sidebar {
+    width: 260px;
+    background-color: #1a2533; /* Azul bem escuro */
+    color: #ecf0f1;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100%;
+    z-index: 2000;
+}
+
+.sidebar-header h2 {
+    color: #fff;
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.btn-new-summary {
+    background-color: #3498db; /* Azul primário */
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-new-summary:hover {
+    background-color: #2980b9;
+}
+
+.sidebar-nav {
+    margin-top: 24px;
+}
+
+.sidebar-nav ul,
+.sidebar-section ul {
+    list-style: none;
+}
+
+.sidebar-nav li a,
+.sidebar-section li a {
+    color: #bdc3c7; /* Cinza claro */
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 8px;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.sidebar-nav li a:hover,
+.sidebar-section li a:hover {
+    background-color: #2c3e50;
+    color: #fff;
+}
+
+.sidebar-nav li.active a {
+    background-color: #2c3e50;
+    color: #fff;
+    font-weight: 700;
+}
+
+.sidebar-section {
+    margin-top: 24px;
+}
+
+.sidebar-section h3 {
+    color: #7f8c8d; /* Cinza médio */
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    padding-left: 8px;
+}
+
+
+/* COLE ISSO NO LUGAR: */
+.sidebar-footer {
+    margin-top: auto; /* Empurra para o rodapé */
+    border-top: 1px solid #2c3e50;
+    padding: 16px 8px; /* Ajusta o padding */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative; /* (NOVO) Adicionado para o menu de avatar */
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* Impede que o nome quebre ou seja esmagado */
+    overflow: hidden;
+    flex: 1;
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%; /* Deixa a imagem redonda */
+    object-fit: cover; /* Garante que a imagem preencha o círculo */
+}
+
+.user-name {
+    color: #ecf0f1;
+    font-weight: 500;
+    font-size: 14px;
+    /* Caso o nome seja muito longo */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    /* ===== ADICIONE ESTAS 3 LINHAS ===== */
+    flex: 1; /* Faz o link ocupar o espaço restante */
+    text-align: center; /* Centraliza o texto */
+    text-decoration: none; /* Remove o sublinhado do link */
+}
+
+.logout-icon {
+    color: #bdc3c7;
+    text-decoration: none;
+    padding: 6px;
+    border-radius: 5px;
+    display: flex; /* Apenas para centralizar o ícone */
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.logout-icon i {
+    font-size: 22px; /* Ajusta o tamanho do ícone */
+}
+
+.logout-icon:hover {
+    color: #e74c3c; /* Vermelho para logout */
+    background-color: #2c3e50;
+}
+
+/* ===== ÍCONES (i) ===== */
+i.ph {
+    font-size: 20px;
+}
+/* ===== CONTEÚDO PRINCIPAL (MAIN) - ESTILO DARK MODE ===== */
+.main-content {
+    flex: 1; /* Ocupa o resto do espaço */
+    margin-left: 260px; /* Libera espaço para a sidebar fixa */
+    padding: 32px;
+    background-color: #1A1D24; /* Fundo escuro da imagem */
+    color: #FFFFFF; /* Texto padrão branco */
+}
+
+.main-header {
+    display: flex;
+    justify-content: center; /* Centraliza a barra de busca */
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+/* O H1 foi removido, então o estilo dele não é mais necessário */
+
+.search-bar {
+    position: relative;
+    width: 100%; /* Ocupa 100% do container */
+    max-width: 600px; /* Limite máximo para a barra */
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 14px 20px;
+    padding-left: 50px; /* Espaço para o ícone */
+    border-radius: 10px;
+    border: none; /* Remove a borda */
+    background-color: #2B2F3A; /* Fundo da barra de busca */
+    font-size: 16px;
+    color: #FFFFFF; /* Cor do texto ao digitar */
+}
+
+.search-bar input::placeholder {
+    color: #AAAAAA; /* Cor do texto placeholder */
+}
+
+.search-bar i {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #AAAAAA; /* Cor do ícone */
+    font-size: 20px;
+}
+
+/* ===== GRID DE RESUMOS (DARK MODE) ===== */
+.summaries-grid h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #FFFFFF; /* Título "Resumos Recentes" em branco */
+}
+
+.grid-container {
+    display: grid;
+    /* Ajustado para cards mais quadrados */
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px; /* Espaçamento entre os cards */
+}
+
+.summary-card {
+    /* Remove estilos antigos de card branco */
+    /* background-color: #fff; */
+    /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); */
+    position: relative;
+    border-radius: 12px; /* Bordas arredondadas */
+    padding: 24px;
+    color: #FFFFFF; /* Texto de dentro do card em branco */
+    min-height: 140px; /* Altura mínima para parecer um bloco */
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Alinha o título em cima e a disciplina embaixo */
+
+    transition: transform 0.2s ease;
+}
+
+.summary-card:hover {
+    transform: translateY(-5px); /* Efeito de levantar */
+    /* box-shadow: none; */
+}
+
+.summary-card h4 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #FFFFFF;
+}
+
+/* Removemos o <p> e .card-footer, então seus estilos não são necessários */
+
+/* Novo estilo para a disciplina */
+.card-discipline-dark {
+    font-size: 16px;
+    font-weight: 400;
+    opacity: 0.8; /* Deixa o subtítulo um pouco mais suave */
+}
+
+/* ===== CORES DOS CARDS ===== */
+.card-blue {
+    background-color: #2E86C1;
+}
+.card-green {
+    background-color: #28B463;
+}
+.card-purple {
+    background-color: #8E44AD;
+}
+.card-orange {
+    background-color: #E67E22;
+}
+/* ===== NOVOS ESTILOS DO MODAL (DARK MODE) ===== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Mais escuro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-content {
+    background-color: #2B2F3A; /* Fundo escuro do modal */
+    padding: 24px 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 550px; /* Um pouco maior */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+    border-top: 4px solid #3498db; /* Destaque azul */
+}
+
+.modal-overlay.active .modal-content {
+    transform: translateY(0);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #444957; /* Borda escura */
+}
+
+.modal-header h2 {
+    font-size: 22px;
+    color: #FFFFFF; /* Texto branco */
+}
+
+.close-modal-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #bdc3c7; /* Cinza claro */
+    transition: color 0.2s;
+}
+.close-modal-btn:hover {
+    color: #FFFFFF;
+}
+
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* Espaço entre os grupos */
+}
+
+/* (BUG CORRIGIDO) Regras .form-row e .form-group.half-width removidas */
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Espaço entre label e input */
+}
+
+.modal-form label {
+    font-weight: 500;
+    color: #E0E0E0; /* Texto do label branco-acinzentado */
+    font-size: 14px;
+}
+
+/* Container do ícone + input */
+.input-with-icon {
+    position: relative;
+}
+
+.input-with-icon i {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #777;
+    font-size: 18px;
+}
+
+/* ======================================= */
+/* AQUI ESTÁ A MUDANÇA */
+/* ======================================= */
+
+/* Estilo para Inputs e Select (SEM o textarea) */
+.modal-form input[type="text"],
+.modal-form select {
+    width: 100%;
+    padding: 12px 16px;
+    padding-left: 45px; /* Espaço para o ícone */
+    border: 1px solid #444957; /* Borda escura */
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    background-color: #1A1D24; /* Fundo do input (igual ao do painel) */
+    color: #FFFFFF; /* Texto digitado em branco */
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.modal-form select {
+    appearance: none; /* Remove seta padrão */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23777' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 40px; /* Espaço para a seta customizada */
+}
+.modal-form select option {
+    background: #2B2F3A;
+    color: white;
+}
+
+/* Estilo SÓ para o textarea (sem padding-left) */
+.modal-form textarea {
+    width: 100%;
+    padding: 12px 16px; /* Padding original, sem 45px à esquerda */
+    border: 1px solid #444957;
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    background-color: #1A1D24;
+    color: #FFFFFF;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    resize: vertical;
+}
+
+/* Bloco de alinhamento do ícone do textarea foi REMOVIDO */
+
+.modal-form input:focus,
+.modal-form select:focus,
+.modal-form textarea:focus {
+    outline: none;
+    border-color: #3498db; /* Borda azul ao focar */
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.3);
+}
+
+/* ======================================= */
+/* FIM DAS MUDANÇAS */
+/* ======================================= */
+
+/* Seletor de Cores */
+.color-selector {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.color-selector input[type="radio"] {
+    display: none; /* Esconde o botão de rádio real */
+}
+
+.color-option {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: transform 0.2s, border-color 0.2s;
+}
+.color-option:hover {
+    transform: scale(1.1);
+}
+
+/* Define as cores dos círculos */
+.color-option.blue { background-color: #2E86C1; }
+.color-option.green { background-color: #28B463; }
+.color-option.purple { background-color: #8E44AD; }
+.color-option.orange { background-color: #E67E22; }
+
+/* Mostra qual cor está selecionada */
+.color-selector input[type="radio"]:checked + .color-option {
+    border-color: #FFFFFF;
+    transform: scale(1.1);
+}
+
+/* Botão Salvar */
+.btn-submit {
+    background-color: #3498db;
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 8px;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-submit:hover {
+    background-color: #2980b9;
+}
+.btn-submit:active {
+    transform: scale(0.98);
+}
+
+/* ===== ESTILO DO BOTÃO DE DELETAR ===== */
+.delete-btn {
+    position: absolute; /* Posiciona o botão em relação ao card */
+    top: 10px;
+    right: 10px;
+    
+    background: rgba(0, 0, 0, 0.2); /* Fundo levemente escuro */
+    border: none;
+    color: #FFFFFF; /* Cor do 'X' */
+    font-size: 16px; /* Tamanho do 'X' */
+    cursor: pointer;
+    
+    width: 30px; /* Largura do botão */
+    height: 30px; /* Altura do botão */
+    border-radius: 50%; /* Botão redondo */
+    
+    display: flex; /* Para centralizar o ícone 'X' */
+    align-items: center;
+    justify-content: center;
+    
+    /* Escondido por padrão */
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.8);
+    transition: all 0.2s ease-in-out;
+}
+
+/* Mostra o botão quando o mouse passa por cima do card */
+.summary-card:hover .delete-btn {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+.summary-card:hover .edit-btn {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+.delete-btn:hover {
+    background-color: rgba(0, 0, 0, 0.4); /* Escurece mais ao passar o mouse */
+}
+
+/* ESTILO DO BOTÃO DE EXPANDIR (NOVO) */
+.expand-btn {
+    position: absolute;
+    bottom: 10px; /* Canto inferior */
+    right: 10px;  /* Canto direito */
+    
+    background: rgba(0, 0, 0, 0.2);
+    border: none;
+    color: #FFFFFF;
+    font-size: 16px;
+    cursor: pointer;
+    
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* Escondido por padrão */
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.8);
+    transition: all 0.2s ease-in-out;
+}
+
+/* Mostra os dois botões quando o mouse passa por cima do card */
+.summary-card:hover .delete-btn,
+.summary-card:hover .expand-btn {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+.expand-btn:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* =================================== */
+/* (NOVO) ESTILO DO CARD DE BOAS-VINDAS */
+/* =================================== */
+.welcome-card-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Fundo escuro transparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1001; /* Acima de outros modais */
+    opacity: 0;
+    pointer-events: none; /* Não interage quando invisível */
+    transition: opacity 0.3s ease;
+}
+
+.welcome-card-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.welcome-card-content {
+    background-color: #2B2F3A; /* Fundo do card (igual ao modal) */
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+    position: relative;
+    color: #FFFFFF; /* Cor do texto */
+    border-top: 4px solid #3498db; /* Destaque azul */
+}
+
+.welcome-card-overlay.active .welcome-card-content {
+    transform: translateY(0);
+}
+
+.bookie-mascot {
+    width: 150px; /* Tamanho da imagem do mascote */
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.welcome-card-content h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #3498db; /* Cor do título */
+}
+
+.welcome-card-content p {
+    font-size: 16px;
+    color: #E0E0E0;
+    margin-bottom: 0;
+}
+
+.close-welcome-card-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #bdc3c7;
+    transition: color 0.2s;
+}
+.close-welcome-card-btn:hover {
+    color: #FFFFFF;
+}
+
+/* =================================== */
+/* (NOVO) ESTILOS DO MODAL DE AVATAR   */
+/* =================================== */
+
+/* Estilo do botão que abre o modal (na sidebar) */
+.user-avatar-button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.user-avatar-button .user-avatar {
+    display: block;
+}
+
+/* O Overlay do Modal (fundo escuro) */
+.avatar-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1002; /* Acima dos outros modais */
+    
+    /* Escondido por padrão */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.avatar-menu-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* O Conteúdo do Modal (a caixa no meio) */
+.avatar-menu-content {
+    background-color: #2B2F3A;
+    padding: 24px 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 450px; /* Tamanho mediano */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+    border-top: 4px solid #3498db;
+    position: relative;
+}
+
+.avatar-menu-overlay.active .avatar-menu-content {
+    transform: translateY(0);
+}
+
+/* Cabeçalho do modal */
+.avatar-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #444957;
+}
+
+.avatar-menu-header h2 {
+    font-size: 20px;
+    color: #FFFFFF;
+}
+
+.close-avatar-btn {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #bdc3c7;
+    transition: color 0.2s;
+}
+.close-avatar-btn:hover {
+    color: #FFFFFF;
+}
+
+/* Grade de Avatares */
+.avatar-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colunas */
+    gap: 20px;
+    justify-items: center;
+    margin-bottom: 24px;
+}
+
+.avatar-option {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: all 0.2s ease-out;
+    object-fit: cover;
+}
+.avatar-option:hover {
+    transform: scale(1.05);
+    border-color: #555;
+}
+
+/* Classe que o JS vai adicionar ao avatar selecionado */
+.avatar-option.selected {
+    border-color: #3498db;
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(52, 152, 219, 0.5);
+}
+
+/* Botão Salvar */
+.btn-save-avatar {
+    background-color: #3498db;
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+.btn-save-avatar:hover {
+    background-color: #2980b9;
+}
+.btn-save-avatar:active {
+    transform: scale(0.98);
+}
+
+
+/* =================================== */
+/* (NOVO) ESTILOS DO MODAL DE LEITURA  */
+/* =================================== */
+
+.read-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1003; /* Acima de todos */
+    
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.read-modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.read-modal-content {
+    background-color: #2B2F3A;
+    padding: 24px 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 600px; /* Um pouco maior para leitura */
+    max-height: 80vh; /* Altura máxima */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+    border-top: 4px solid #3498db;
+    
+    /* Para habilitar a rolagem SÓ do conteúdo */
+    display: flex;
+    flex-direction: column;
+}
+
+.read-modal-overlay.active .read-modal-content {
+    transform: translateY(0);
+}
+
+.read-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #444957;
+    flex-shrink: 0; /* Impede que o header encolha */
+}
+
+.read-modal-header h2 {
+    font-size: 20px;
+    color: #FFFFFF;
+}
+
+.close-read-modal-btn {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #bdc3c7;
+    transition: color 0.2s;
+}
+.close-read-modal-btn:hover {
+    color: #FFFFFF;
+}
+
+/* Corpo do Modal (onde o texto aparece) */
+.read-modal-body {
+    flex: 1; /* Ocupa o espaço restante */
+    overflow-y: auto; /* Adiciona scroll se o texto for longo */
+    color: #E0E0E0;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+.read-modal-body p {
+    /* IMPORTANTE: Preserva as quebras de linha do textarea */
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+}
+
+/* ESTILO DO BOTÃO DE EDITAR (NOVO) */
+.edit-btn {
+    position: absolute;
+    bottom: 10px; /* Canto inferior */
+    right: 50px;  /* Ao lado do botão expandir */
+    
+    background: rgba(0, 0, 0, 0.2);
+    border: none;
+    color: #FFFFFF;
+    font-size: 16px;
+    cursor: pointer;
+    
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.8);
+    transition: all 0.2s ease-in-out;
+}
+
+.edit-btn:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* =================================== */
+/* (NOVO) ESTILOS DE RESPONSIVIDADE
+/* =================================== */
+
+/* 1. O botão hambúrguer (escondido no PC) */
+.menu-toggle-btn {
+    display: none; /* Escondido no Desktop */
+    background: none;
+    border: 1px solid #444957;
+    color: #E0E0E0;
+    font-size: 24px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.menu-toggle-btn:hover {
+    background-color: #2B2F3A;
+}
+
+
+/* 2. O Overlay (fundo escuro, escondido no PC) */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1999; /* Abaixo da sidebar, acima do conteúdo */
+    
+    /* Escondido por padrão */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+
+/* =================================== */
+/* Media Query para Celular
+/* (Telas com 768px de largura ou menos)
+/* =================================== */
+@media (max-width: 1000px) {
+
+    /* 1. Esconde a sidebar para a esquerda */
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-out;
+    }
+
+    /* 2. Remove a margem do conteúdo principal */
+    .main-content {
+        margin-left: 0;
+    }
+
+    /* 3. Mostra o botão hambúrguer */
+    .menu-toggle-btn {
+        display: block; /* Mostra o botão */
+    }
+    
+    /* 4. Ajusta o header para ter o botão e a busca */
+    .main-header {
+        justify-content: space-between; /* Botão na esquerda, busca na direita */
+    }
+    .search-bar {
+        width: 75%; /* Ajusta a largura da busca */
+    }
+
+    
+    /* =================================== */
+    /* ESTADO "ABERTO" (via JS)
+    /* =================================== */
+
+    /* Quando o body tiver a classe .sidebar-open... */
+
+    /* 1. Mostra a sidebar */
+    body.sidebar-open .sidebar {
+        transform: translateX(0);
+        box-shadow: 0 0 40px rgba(0,0,0,0.5);
+    }
+    
+    /* 2. Mostra o overlay */
+    body.sidebar-open .sidebar-overlay {
+        opacity: 1;
+        pointer-events: auto;
+    }
+}

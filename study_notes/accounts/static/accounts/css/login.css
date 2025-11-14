@@ -1,0 +1,235 @@
+/* Importa a fonte */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #1A1D24; /* Fundo escuro do app */
+    color: #FFFFFF;
+    /* Centraliza tudo na tela */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px; /* Adiciona padding para telas menores */
+}
+
+.form-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* =================================== */
+/* (NOVO) CABEÇALHO DO LOGIN
+/* =================================== */
+.login-header {
+    display: flex;
+    flex-direction: column; /* Bookie em cima, texto embaixo */
+    align-items: center; /* Centraliza horizontalmente */
+    gap: 20px; /* Espaço entre Bookie e texto */
+    margin-bottom: 20px; 
+}
+
+.bookie-login {
+    width: 120px;
+    height: auto;
+}
+
+.header-phrase {
+    font-size: 22px;
+    font-weight: 700; /* Mais grosso (bold) */
+    color: #E0E0E0; 
+    line-height: 1.4; 
+    text-align: center; /* Centralizado */
+}
+
+
+.form-container {
+    background-color: #2B2F3A;
+    padding: 30px;
+    border-radius: 12px;
+    width: 400px;
+    max-width: 100%; /* Garante que não vaze da tela */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border-top: 4px solid #3498db;
+}
+
+/* Estilo das abas (Login / Cadastrar) */
+.form-toggle {
+    display: flex;
+    background-color: #1A1D24;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    overflow: hidden;
+}
+
+.toggle-btn {
+    flex: 1; /* Ocupa 50% */
+    padding: 12px;
+    background: none;
+    border: none;
+    color: #bdc3c7;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.toggle-btn.active {
+    background-color: #3498db;
+    color: #FFFFFF;
+    font-weight: 700;
+}
+
+
+/* =================================== */
+/* (CORRIGIDO) Estilo dos campos do formulário */
+/* =================================== */
+
+#dynamic-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; 
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#dynamic-form label {
+    font-weight: 500;
+    color: #E0E0E0;
+    font-size: 14px;
+}
+
+.input-with-icon {
+    position: relative;
+}
+
+.input-with-icon i {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #777;
+    font-size: 18px;
+}
+
+#dynamic-form input[type="text"],
+#dynamic-form input[type="email"],
+#dynamic-form input[type="password"] {
+    width: 100%;
+    padding: 12px 16px;
+    padding-left: 45px; 
+    border: 1px solid #444957;
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    background-color: #1A1D24;
+    color: #FFFFFF;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#dynamic-form input:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.3);
+}
+
+.btn-submit {
+    background-color: #3498db;
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-submit:hover {
+    background-color: #2980b9;
+}
+
+
+/* =================================== */
+/* A MÁGICA DINÂMICA (CSS)
+/* =================================== */
+
+/* Por padrão, esconde os campos de cadastro */
+.register-field {
+    display: none;
+}
+
+/* Quando o formulário estiver em modo Cadastro, mostra os campos */
+.form-container.register-mode .register-field {
+    display: flex;
+}
+
+
+/* =================================== */
+/* NOVO: ESTILOS DO LOGIN COM GOOGLE */
+/* =================================== */
+
+.divider-text {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #bdc3c7;
+    margin: 15px 0;
+}
+
+.divider-text::before,
+.divider-text::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #444957; /* Linha escura */
+}
+
+.divider-text:not(:empty)::before {
+    margin-right: .5em;
+}
+
+.divider-text:not(:empty)::after {
+    margin-left: .5em;
+}
+
+.btn-google {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    
+    background-color: #FFFFFF; /* Fundo branco para o Google */
+    color: #1A1D24; /* Texto escuro */
+    
+    padding: 14px 20px;
+    border: 1px solid #DDD;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.2s ease;
+}
+
+.btn-google:hover {
+    background-color: #F0F0F0;
+}
+
+.google-icon {
+    width: 20px;
+    height: 20px;
+}
