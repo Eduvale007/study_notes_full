@@ -84,39 +84,6 @@ def login_usuario(request):
 # ===================================
 
 
-def google_login(request):
-    token = request.POST.get('token')
-
-    google_info = requests.get(f"https://www.googleapis.com/oauth2/v3/tokeninfo?id_token={token}").json()
-
-    email = google_info.get('email')
-    google_id = google_info.get('sub')
-    nome = google_info.get('name')
-    picture = google_info.get('picture')
-
-    usuario, created = Usuario.objects.get_or_create(
-        email=email,
-        defaults={
-            'nome': nome,
-            'google_id': google_id,
-            'provedor': 'google',
-            'avatar_url': picture
-        }
-    )
-
-    # Se já existia usuário local → conectar Google a ele
-    if not created and usuario.google_id is None:
-        usuario.google_id = google_id
-        usuario.provedor = "google"
-        usuario.avatar_url = picture
-        usuario.save()
-
-    # (Importante: Adicionar o backend para o login funcionar)
-    usuario.backend = 'django.contrib.auth.backends.ModelBackend' 
-    login(request, usuario)
-    
-    # CUIDADO: Mude 'dashboard' para o nome da rota do seu painel
-    return redirect('/')
 
 
 def logout_usuario(request):

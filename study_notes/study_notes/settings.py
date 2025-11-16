@@ -38,8 +38,61 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
-    'accounts'
+    'accounts',
+
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
+AUTH_USER_MODEL = 'accounts.Usuario'
+SITE_ID = 1
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+# === Configurações do Allauth ===
+# (COLE TUDO ABAIXO)
+
+# 1. Para login/auth
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+
+SOCIALACCOUNT_AUTO_SIGNUP = True
+SOCIALACCOUNT_LOGIN_ON_GET = True
+
+ACCOUNT_EMAIL_VERIFICATION = "none"
+SOCIALACCOUNT_EMAIL_VERIFICATION = "none"
+
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_USER_MODEL_EMAIL_FIELD = "email"
+SOCIALACCOUNT_ADAPTER = 'accounts.adapter.MySocialAccountAdapter'
+
+
+
+# 6. Configuração do Google
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': '846573441656-2o5skf0f04m1s8rq53fv1d628jn2vgkt.apps.googleusercontent.com',
+            'secret': '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',
+        },
+        'SCOPE': [
+            'profile', # Pede o 'name' (nome)
+            'email',
+        ],
+    }
+}
+# === Fim do Allauth ===
+
+# (Opcional, mas recomendado) Onde o Django te joga depois do login
+LOGIN_REDIRECT_URL = 'home' # <-- Mude 'home' para o NAME da sua rota do painel
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -49,6 +102,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'study_notes.urls'

@@ -22,5 +22,6 @@ urlpatterns = [
 
     
     path('', include('core.urls')),
-    path('accounts/', include('accounts.urls'))
+    path('accounts/', include('accounts.urls')),
+    path('google-auth/', include('allauth.urls'))
 ]

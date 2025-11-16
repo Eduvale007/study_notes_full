@@ -1,5 +1,11 @@
+
+
 // Espera a página carregar
+
+
 document.addEventListener('DOMContentLoaded', () => {
+
+    
 
     // Pega os elementos
     const loginTab = document.getElementById('login-tab');
@@ -48,15 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-    // --- LÓGICA DO GOOGLE ---
-    const googleLoginBtn = document.getElementById('google-login-btn');
     
-    googleLoginBtn.addEventListener('click', () => {
-        alert('Redirecionando para o Google para Autenticação OAuth...');
-        // No futuro, aqui você faria o redirecionamento
-        // para a sua API de Back-end (Ex: /api/auth/google)
-    });
-
     //
     // !!! IMPORTANTE: O BLOCO 'form.addEventListener('submit', ...)' FOI REMOVIDO !!!
     //
