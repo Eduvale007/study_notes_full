@@ -25,13 +25,15 @@
                 <button id="register-tab" class="toggle-btn">Cadastrar</button>
             </div>
 
-            <form id="dynamic-form">
+            <form id="dynamic-form" method="post" action="{% url 'login' %}" data-login-url="{% url 'login' %}" data-register-url="{% url 'registrar' %}">
+
+                {% csrf_token %}
                 
                 <div class="form-group register-field">
                     <label for="name">Nome</label>
                     <div class="input-with-icon">
                         <i class="ph ph-user"></i>
-                        <input type="text" id="name" placeholder="Digite seu nome">
+                        <input type="text" id="name" name="nome" placeholder="Digite seu nome">
                     </div>
                 </div>
 
@@ -39,7 +41,7 @@
                     <label for="email">Email</label>
                     <div class="input-with-icon">
                         <i class="ph ph-at"></i>
-                        <input type="email" id="email" placeholder="seuemail@dominio.com">
+                        <input type="email" id="email" placeholder="seuemail@dominio.com" name="email">
                     </div>
                 </div>
 
@@ -47,7 +49,7 @@
                     <label for="password">Senha</label>
                     <div class="input-with-icon">
                         <i class="ph ph-lock"></i>
-                        <input type="password" id="password" placeholder="Sua senha">
+                        <input type="password" id="password" placeholder="Sua senha" name="senha">
                     </div>
                 </div>
 
@@ -55,7 +57,7 @@
                     <label for="confirm-password">Confirmar Senha</label>
                     <div class="input-with-icon">
                         <i class="ph ph-check-circle"></i>
-                        <input type="password" id="confirm-password" placeholder="Repita sua senha">
+                        <input type="password" id="confirm-password" placeholder="Repita sua senha" name="confirmar_senha">
                     </div>
                 </div>
 

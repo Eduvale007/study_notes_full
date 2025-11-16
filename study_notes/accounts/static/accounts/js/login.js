@@ -7,15 +7,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const formContainer = document.getElementById('form-container');
     const submitBtn = document.getElementById('submit-btn');
 
-    // Pega o botão do Google
-    const googleLoginBtn = document.getElementById('google-login-btn');
+    // Pega o formulário
+    const dynamicForm = document.getElementById('dynamic-form');
     
-    // Simula a função de login com Google
-    googleLoginBtn.addEventListener('click', () => {
-        alert('Redirecionando para o Google para Autenticação OAuth...');
-        // No futuro, aqui você faria o redirecionamento (window.location.href)
-        // para a sua API de Back-end (Ex: /api/auth/google)
-    });
+    // Pega as URLs que passamos do Django
+    const loginUrl = dynamicForm.dataset.loginUrl;
+    const registerUrl = dynamicForm.dataset.registerUrl;
+
 
     // Ouve o clique na aba "Cadastrar"
     registerTab.addEventListener('click', () => {
@@ -28,6 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 3. Muda o texto do botão
         submitBtn.textContent = 'Criar Conta';
+
+        // 4. Muda a URL do 'action' do formulário
+        dynamicForm.action = registerUrl;
     });
 
     // Ouve o clique na aba "Entrar"
@@ -41,25 +42,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 3. Muda o texto do botão
         submitBtn.textContent = 'Entrar';
+
+        // 4. Muda a URL do 'action' do formulário
+        dynamicForm.action = loginUrl;
     });
 
 
-    // (Bônus) Lógica de envio (só para simulação)
-    const form = document.getElementById('dynamic-form');
-    form.addEventListener('submit', (event) => {
-        event.preventDefault(); // Impede o recarregamento
-
-        if (formContainer.classList.contains('register-mode')) {
-            // Lógica de Cadastro
-            alert('Enviando dados de Cadastro...');
-            // No futuro, aqui você faria o 'fetch' para a sua API de /register
-        } else {
-            // Lógica de Login
-            alert('Enviando dados de Login...');
-            // No futuro, aqui você faria o 'fetch' para a sua API de /login
-            // e se der certo:
-            // window.location.href = 'index.html'; // Redireciona para o painel
-        }
+    // --- LÓGICA DO GOOGLE ---
+    const googleLoginBtn = document.getElementById('google-login-btn');
+    
+    googleLoginBtn.addEventListener('click', () => {
+        alert('Redirecionando para o Google para Autenticação OAuth...');
+        // No futuro, aqui você faria o redirecionamento
+        // para a sua API de Back-end (Ex: /api/auth/google)
     });
 
+    //
+    // !!! IMPORTANTE: O BLOCO 'form.addEventListener('submit', ...)' FOI REMOVIDO !!!
+    //
 });

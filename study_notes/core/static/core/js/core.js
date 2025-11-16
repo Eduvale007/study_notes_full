@@ -304,12 +304,7 @@ const welcomeMessages = [
         }
     });
 
-    // --- FUNCIONALIDADE DE LOGOUT ---
-    logoutBtn.addEventListener('click', (event) => {
-        event.preventDefault(); 
-        window.location.href = 'login.html'; 
-    });
-
+   
 
     // --- (ATUALIZADO) FUNÇÃO DE ADICIONAR E EDITAR RESUMO ---
     summaryForm.addEventListener('submit', (event) => {

@@ -41,18 +41,30 @@
             </div>
         
             <div class="sidebar-footer">
-                <div class="user-profile">
+
+    {% if user.is_authenticated %}
+        
+        <div class="user-profile">
             <button id="user-avatar-button" class="user-avatar-button">
-                <img src="{% static 'core/img-profile/bookie-acenando.jpg'%}" alt="Foto do Usuário" class="user-avatar" id="user-avatar-img">
+                <img src="{{ user.avatar_url|default_if_none:'/static/core/img-profile/bookie-acenando.jpg' }}" alt="Foto do Usuário" class="user-avatar" id="user-avatar-img">
             </button>
-            
-            <a href="{% url 'user_login' %}" class="user-name"> Fazer Login</a>
+            <span class="user-name">{{ user.nome }}</span>
         </div>
-                
-                <a href="#" id="logout-btn" class="logout-icon" title="Sair">
-                    <i class="ph ph-sign-out"></i>
-                </a>
-            </div>
+        
+        <a href="{% url 'logout' %}" id="logout-btn" class="logout-icon" title="Sair">
+            <i class="ph ph-sign-out"></i>
+        </a>
+
+    {% else %}
+
+        <div class="user-profile">
+            <button class="user-avatar-button" disabled> <img src="{% static 'core/img-profile/bookie-acenando.jpg'%}" alt="Foto do Usuário" class="user-avatar" id="user-avatar-img">
+            </button>
+            <a href="{% url 'pagina_login' %}" class="user-name">Fazer Login</a>
+        </div>
+        {% endif %}
+
+</div>
         </aside>
         <div class="sidebar-overlay" id="sidebar-overlay"></div>
 

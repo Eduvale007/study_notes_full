@@ -1,7 +1,144 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.hashers import make_password, check_password # <-- IMPORT ADICIONADO
+from django.contrib import messages
+
+
+from .models import Usuario
+import requests
 
 # Create your views here.
 
 
-def user_login(request):
+def pagina_login(request):
     return render(request, 'accounts/index.html')
+
+
+def registrar_usuario(request):
+    if request.method == 'POST':
+        nome = request.POST.get('nome')
+        email = request.POST.get('email')
+        senha = request.POST.get('senha')
+
+        if Usuario.objects.filter(email=email).exists():
+            messages.error(request, "Email já está em uso.")
+            return redirect('registrar') # CUIDADO: a rota é 'registrar' ou 'login'?
+
+        usuario = Usuario(
+            nome=nome,
+            email=email,
+            senha_hash=make_password(senha),
+            provedor="local"
+        )
+        usuario.save()
+
+        messages.success(request, "Conta criada com sucesso! Faça login.")
+        return redirect('login')
+
+    # A view 'registrar_usuario' deve renderizar o template de login.html também
+    # (Já que seu formulário é dinâmico)
+    return render(request, 'accounts/index.html')
+
+
+# ===================================
+# FUNÇÃO CORRIGIDA
+# ===================================
+def login_usuario(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        senha = request.POST.get('senha')
+
+        try:
+            # 1. Tenta encontrar o usuário pelo email
+            user = Usuario.objects.get(email=email)
+
+            # 2. Checa se o usuário é "local" e se a senha bate
+            #    A sua view 'registrar_usuario' salva a senha em 'senha_hash'
+            if user.provedor == 'local' and check_password(senha, user.senha_hash):
+                
+                # 3. Se tudo deu certo, faz o login
+                # (Importante: precisamos logar o usuário com o backend 'ModelBackend'
+                #  já que não usamos authenticate)
+                user.backend = 'django.contrib.auth.backends.ModelBackend' # Linha necessária
+                login(request, user)
+                
+                # CUIDADO: O 'redirect' deve ser para o NOME da sua rota do painel
+                # Se for o app principal, o nome da rota é 'index' ou 'home'?
+                # Vou manter 'dashboard' como placeholder.
+                return redirect('/') 
+            else:
+                # Senha incorreta ou usuário do Google tentando logar localmente
+                messages.error(request, "Email ou senha incorretos.")
+                return redirect('login')
+
+        except Usuario.DoesNotExist:
+            # Usuário não encontrado
+            messages.error(request, "Email ou senha incorretos.")
+            return redirect('login')
+
+    return render(request, 'accounts/index.html')
+# ===================================
+# FIM DA CORREÇÃO
+# ===================================
+
+
+def google_login(request):
+    token = request.POST.get('token')
+
+    google_info = requests.get(f"https://www.googleapis.com/oauth2/v3/tokeninfo?id_token={token}").json()
+
+    email = google_info.get('email')
+    google_id = google_info.get('sub')
+    nome = google_info.get('name')
+    picture = google_info.get('picture')
+
+    usuario, created = Usuario.objects.get_or_create(
+        email=email,
+        defaults={
+            'nome': nome,
+            'google_id': google_id,
+            'provedor': 'google',
+            'avatar_url': picture
+        }
+    )
+
+    # Se já existia usuário local → conectar Google a ele
+    if not created and usuario.google_id is None:
+        usuario.google_id = google_id
+        usuario.provedor = "google"
+        usuario.avatar_url = picture
+        usuario.save()
+
+    # (Importante: Adicionar o backend para o login funcionar)
+    usuario.backend = 'django.contrib.auth.backends.ModelBackend' 
+    login(request, usuario)
+    
+    # CUIDADO: Mude 'dashboard' para o nome da rota do seu painel
+    return redirect('/')
+
+
+def logout_usuario(request):
+    logout(request)
+    return redirect('login')
+
+
+def atualizar_perfil(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+    if request.method == 'POST':
+        user = request.user
+
+        user.nome = request.POST.get('nome')
+        user.avatar_url = request.POST.get('avatar_url')
+
+        # Só atualiza senha se for usuário local
+        nova_senha = request.POST.get('nova_senha')
+        if user.provedor == "local" and nova_senha:
+            user.senha_hash = make_password(nova_senha)
+
+        user.save()
+        messages.success(request, "Perfil atualizado!")
+        return redirect('perfil')
+
+    return render(request, 'accounts/perfil.html')
