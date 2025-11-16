@@ -12,6 +12,7 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
 <body>
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
 
     <div class="dashboard-container">
 
@@ -177,12 +178,13 @@
                 <button id="close-avatar-modal" class="close-avatar-btn">&times;</button>
             </header>
 <div class="avatar-grid">
-    <img src="{% static 'core/img-profile/bookie-acenando.jpg' %}" alt="Avatar 1" class="avatar-option" data-avatar-src="{% static 'core/img/bookie-acenando.jpg' %}">
-    <img src="{% static 'core/img-profile/bookie-bico.jpg' %}" alt="Avatar 2" class="avatar-option" data-avatar-src="{% static 'core/img/bookie-bico.jpg' %}">
-    <img src="{% static 'core/img-profile/bookie-fofo.jpg' %}" alt="Avatar 3" class="avatar-option" data-avatar-src="{% static 'core/img/bookie-fofo.jpg' %}">
-    <img src="{% static 'core/img-profile/bookie-lendo.jpg' %}" alt="Avatar 4" class="avatar-option" data-avatar-src="{% static 'core/img/bookie-lendo.jpg' %}">
-    <img src="{% static 'core/img-profile/bookie-magica.jpg' %}" alt="Avatar 5" class="avatar-option" data-avatar-src="{% static 'core/img/bookie-magica.jpg' %}">
-    <img src="{% static 'core/img-profile/bookie-pensando.jpg' %}" alt="Avatar 6" class="avatar-option" data-avatar-src="{% static 'core/img/bookie-pensando.jpg' %}">
+    <img src="{% static 'core/img-profile/bookie-acenando.jpg' %}" alt="Avatar 1" class="avatar-option" data-avatar-src="{% static 'core/img-profile/bookie-acenando.jpg' %}">
+    <img src="{% static 'core/img-profile/bookie-bico.jpg' %}" alt="Avatar 2" class="avatar-option" data-avatar-src="{% static 'core/img-profile/bookie-bico.jpg' %}">
+    <img src="{% static 'core/img-profile/bookie-fofo.jpg' %}" alt="Avatar 3" class="avatar-option" data-avatar-src="{% static 'core/img-profile/bookie-fofo.jpg' %}">
+    <img src="{% static 'core/img-profile/bookie-lendo.jpg' %}" alt="Avatar 4" class="avatar-option" data-avatar-src="{% static 'core/img-profile/bookie-lendo.jpg' %}">
+    <img src="{% static 'core/img-profile/bookie-magica.jpg' %}" alt="Avatar 5" class="avatar-option" data-avatar-src="{% static 'core/img-profile/bookie-magica.jpg' %}">
+    <img src="{% static 'core/img-profile/bookie-pensando.jpg' %}" alt="Avatar 6" class="avatar-option" data-avatar-src="{% static 'core/img-profile/bookie-pensando.jpg' %}">
+
 </div>
 
 <button id="save-avatar-btn" class="btn-save-avatar">Salvar foto de perfil</button>

@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password, check_password # <-- IMPORT ADICIONADO
 from django.contrib import messages
-
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+import json
 
 from .models import Usuario
 import requests
@@ -142,3 +144,33 @@ def atualizar_perfil(request):
         return redirect('perfil')
 
     return render(request, 'accounts/perfil.html')
+
+
+# accounts/views.py
+
+# (NOVO) VIEW DA API PARA ATUALIZAR O AVATAR
+@login_required # Garante que só usuários logados possam chamar
+def update_avatar(request):
+    
+    # 1. Garante que é um POST (segurança)
+    if request.method == 'POST':
+        try:
+            # 2. Lê os dados JSON enviados pelo JavaScript
+            data = json.loads(request.body)
+            avatar_url = data.get('avatar_url')
+            
+            if not avatar_url:
+                return JsonResponse({'success': False, 'error': 'Nenhuma URL de avatar enviada.'}, status=400)
+
+            # 3. Atualiza o usuário logado
+            user = request.user
+            user.avatar_url = avatar_url
+            user.save()
+            
+            # 4. Retorna uma resposta de sucesso
+            return JsonResponse({'success': True, 'avatar_url': avatar_url})
+
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)}, status=500)
+    
+    return JsonResponse({'success': False, 'error': 'Método GET não permitido.'}, status=405)
