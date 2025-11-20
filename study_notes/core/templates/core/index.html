@@ -21,10 +21,17 @@
                 <h2>Meu Caderno</h2>
             </div>
             
-            <button class="btn-new-summary" id="open-modal-btn">
-                <i class="ph ph-plus-circle"></i>
-                Novo Resumo
-            </button>
+          {% if user.is_authenticated %}
+                <button class="btn-new-summary" id="open-modal-btn">
+                    <i class="ph ph-plus-circle"></i>
+                    Novo Resumo
+                </button>
+            {% else %}
+                <a href="{% url 'pagina_login' %}" class="btn-new-summary" style="text-decoration: none; text-align: center;">
+                    <i class="ph ph-lock-key"></i>
+                    Novo Resumo
+                </a>
+            {% endif %}
 
             <nav class="sidebar-nav">
                 <ul>
