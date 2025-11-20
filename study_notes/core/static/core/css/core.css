@@ -689,7 +689,7 @@ i.ph {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1002; /* Acima dos outros modais */
+    z-index: 2005; /* Acima dos outros modais */
     
     /* Escondido por padrão */
     opacity: 0;
