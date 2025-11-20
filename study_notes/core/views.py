@@ -108,3 +108,7 @@ def delete_summary(request, pk):
             return JsonResponse({'success': False, 'error': str(e)}, status=500)
 
     return JsonResponse({'success': False, 'error': 'Método não permitido'}, status=405)
+
+
+def doacoes_view(request):
+    return render(request, 'core/doacoes.html')

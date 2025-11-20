@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apoie o Projeto - Meu Caderno</title>
+    <link rel="stylesheet" href="{% static 'core/css/doacoes.css' %}">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+
+    <div class="dashboard-container">
+
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Apoie</h2>
+            </div>
+            
+            <a href="{% url 'home' %}" class="btn-new-summary" style="text-decoration: none; justify-content: center;">
+                <i class="ph ph-arrow-left"></i> Voltar ao Início
+            </a>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active"><a href="#"><i class="ph ph-heart"></i> Doações</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            
+            <div class="settings-container"> <div class="donation-hero">
+                   <img src="{% static 'core/img-profile/bookie-fofo.jpg' %}" alt="Bookie Feliz" class="bookie-donation" style="width: 150px; height: auto;">
+                    
+                    <h1 class="settings-title" style="border: none; margin-bottom: 10px;">Gosta do Meu Caderno?</h1>
+                    <p class="donation-text">
+                        Este projeto é mantido por um estudante (eu!) para ajudar outros estudantes. 
+                        Se a plataforma te ajuda nos estudos, considere pagar um cafézinho para manter o servidor online! ☕
+                    </p>
+                </div>
+
+                <div class="donation-options">
+                    
+                    <div class="donation-card highlight">
+                        <i class="ph ph-qr-code donation-icon" style="color: #2ecc71;"></i>
+                        <h3 class="donation-title">Pix Solidário</h3>
+                        <p style="color: #aaa; font-size: 14px; margin-bottom: 10px;">Qualquer valor ajuda!</p>
+                        
+                        <div class="pix-key">
+                            seu.email@pix.com.br
+                        </div>
+                        
+                        <button onclick="navigator.clipboard.writeText('seu.email@pix.com.br'); alert('Chave Pix copiada!')" class="btn-donate" style="background-color: #2ecc71; border: none; cursor: pointer;">
+                            Copiar Chave Pix
+                        </button>
+                    </div>
+
+                    <div class="donation-card">
+                        <i class="ph ph-coffee donation-icon" style="color: #f1c40f;"></i>
+                        <h3 class="donation-title">Café do Dev</h3>
+                        <span class="donation-value">R$ 5,00</span>
+                        <p style="color: #aaa; font-size: 14px; margin-bottom: 15px;">Ajuda a pagar a hospedagem.</p>
+                        
+                        <a href="#" class="btn-donate" style="background-color: #f1c40f; color: #121214;">
+                            Apoiar
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>
