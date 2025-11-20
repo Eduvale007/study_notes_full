@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout , update_session_auth_hash
 from django.contrib.auth.hashers import make_password, check_password # <-- IMPORT ADICIONADO
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -141,3 +141,35 @@ def update_avatar(request):
             return JsonResponse({'success': False, 'error': str(e)}, status=500)
     
     return JsonResponse({'success': False, 'error': 'Método GET não permitido.'}, status=405)
+
+
+@login_required
+def configuracoes(request):
+    user = request.user
+
+    if request.method == 'POST':
+        # 1. Atualizar Nome
+        novo_nome = request.POST.get('nome')
+        if novo_nome:
+            user.nome = novo_nome
+        
+        # 2. Atualizar Senha
+        nova_senha = request.POST.get('senha')
+        confirmar_senha = request.POST.get('confirmar_senha')
+        
+        if nova_senha:
+            if user.provedor == 'google':
+                messages.error(request, "Contas do Google não podem alterar senha aqui.")
+            elif nova_senha != confirmar_senha:
+                messages.error(request, "As senhas não conferem.")
+            else:
+                user.set_password(nova_senha)
+                update_session_auth_hash(request, user)
+                messages.success(request, "Senha alterada com sucesso!")
+
+        user.save()
+        messages.success(request, "Perfil atualizado!")
+        return redirect('home') # Note o novo nome da rota
+
+    # Note que agora o template vai ficar dentro da pasta 'accounts'
+    return render(request, 'accounts/settings.html')

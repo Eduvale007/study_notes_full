@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações - Meu Caderno</title>
+    <link rel="stylesheet" href="{% static 'accounts/css/settings.css'%}"> <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+
+    <div class="dashboard-container">
+
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Configurações</h2>
+            </div>
+            
+            <a href="{% url 'home' %}" class="btn-new-summary" style="text-decoration: none; justify-content: center;">
+                <i class="ph ph-arrow-left"></i> Voltar ao Início
+            </a>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active"><a href="#"><i class="ph ph-gear"></i> Minha Conta</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="main-header">
+                <h1>Editar Perfil</h1> </header>
+
+            <div class="settings-container">
+                <h2 class="settings-title">Seus Dados</h2>
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert-box {% if message.tags == 'success' %}alert-success{% else %}alert-error{% endif %}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <form method="POST">
+                    {% csrf_token %}
+                    
+                    <div class="settings-group">
+                        <label>Nome Completo</label>
+                        <input type="text" name="nome" class="settings-input" value="{{ user.nome }}">
+                    </div>
+
+                    <div class="settings-group">
+                        <label>Email (Não alterável)</label>
+                        <input type="text" class="settings-input" value="{{ user.email }}" disabled>
+                    </div>
+
+                    {% if user.provedor == 'local' %}
+                        <hr class="settings-divider">
+                        
+                        <h3 class="settings-subtitle">Alterar Senha</h3>
+
+                        <div class="settings-group">
+                            <label>Nova Senha</label>
+                            <input type="password" name="senha" class="settings-input" placeholder="Deixe em branco para manter a atual">
+                        </div>
+
+                        <div class="settings-group">
+                            <label>Confirmar Nova Senha</label>
+                            <input type="password" name="confirmar_senha" class="settings-input" placeholder="Repita a nova senha">
+                        </div>
+                    {% endif %}
+
+                    <button type="submit" class="btn-save-settings">Salvar Alterações</button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>
