@@ -22,6 +22,14 @@ def registrar_usuario(request):
         email = request.POST.get('email')
         senha = request.POST.get('senha')
 
+        #Verifica se o checkbox veio marcado
+        termos_aceitos = request.POST.get('termos') # Retorna 'on' se marcado, None se não
+
+        # Validação dos Termos
+        if not termos_aceitos:
+            messages.error(request, "Você precisa aceitar os Termos de Uso para criar uma conta.")
+            return redirect('registrar')
+
         if Usuario.objects.filter(email=email).exists():
             messages.error(request, "Email já está em uso.")
             return redirect('registrar') # CUIDADO: a rota é 'registrar' ou 'login'?
@@ -173,3 +181,8 @@ def configuracoes(request):
 
     # Note que agora o template vai ficar dentro da pasta 'accounts'
     return render(request, 'accounts/settings.html')
+
+
+def termos_view(request):
+    # MUDANÇA AQUI: Agora aponta para a pasta 'accounts'
+    return render(request, 'accounts/termos.html')

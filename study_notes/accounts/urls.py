@@ -9,4 +9,5 @@ urlpatterns = [
     path("perfil/", views.atualizar_perfil, name="perfil"),
     path("api/update_avatar/", views.update_avatar, name="update_avatar"),
     path('configuracoes/', views.configuracoes, name='configuracoes'),
+    path('termos/', views.termos_view, name='termos'),
 ]

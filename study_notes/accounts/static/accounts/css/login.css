@@ -233,3 +233,51 @@ body {
     width: 20px;
     height: 20px;
 }
+
+ 
+
+.form-group.terms-wrapper {
+    flex-direction: row !important; /* O !important garante que sobrescreva o padrão */
+    align-items: center;
+    gap: 12px; /* Espaço entre o quadrado e o texto */
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+/* Estilo do quadradinho */
+.terms-wrapper input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #3498db; /* Deixa o checkbox azul quando marcado */
+    margin: 0; /* Remove margens extras */
+    
+    /* Reseta estilos que podem estar vindo do input[type=text] */
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+/* Estilo do Texto "Li e aceito..." */
+.terms-wrapper label {
+    font-size: 14px;
+    color: #bdc3c7; /* Cinza claro */
+    cursor: pointer;
+    font-weight: 400;
+    margin: 0; /* Remove a margem inferior padrão das labels */
+    line-height: 1.2;
+}
+
+/* Estilo do Link "Termos de Uso" (Mais Visível) */
+.terms-wrapper a {
+    color: #3498db; /* Azul vibrante igual ao botão */
+    font-weight: 700; /* Negrito forte */
+    text-decoration: none;
+    border-bottom: 1px solid transparent; /* Prepara para o hover */
+    transition: all 0.2s;
+}
+
+.terms-wrapper a:hover {
+    color: #5dade2; /* Azul um pouco mais claro ao passar o mouse */
+    border-bottom: 1px solid #5dade2; /* Sublinhado ao passar o mouse */
+}

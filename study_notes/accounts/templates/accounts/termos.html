@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Termos de Uso - Meu Caderno</title>
+    
+    <link rel="stylesheet" href="{% static 'accounts/css/settings.css' %}">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        .text-content {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 15px;
+        }
+        .text-content h3 {
+            color: var(--text-primary);
+            margin-top: 24px;
+            margin-bottom: 12px;
+        }
+        .text-content p {
+            margin-bottom: 16px;
+        }
+        /* Estilo para a lista de proibições */
+        .text-content ul {
+            list-style: disc;
+            margin-left: 20px;
+            margin-bottom: 16px;
+        }
+        .text-content li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Institucional</h2>
+            </div>
+            
+            <a href="{% url 'registrar' %}" class="btn-new-summary" style="text-decoration: none; justify-content: center;">
+                <i class="ph ph-arrow-left"></i> Voltar ao Início
+            </a>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active"><a href="#"><i class="ph ph-scroll"></i> Termos de Uso</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="main-header">
+                <h1>Legal</h1>
+            </header>
+
+            <div class="settings-container">
+                <h2 class="settings-title">Termos de Uso</h2>
+
+                <div class="text-content">
+                    <p>Bem-vindo ao <strong>Meu Caderno Digital</strong>. Ao acessar este site, você concorda em cumprir estes termos de serviço, todas as leis e regulamentos aplicáveis.</p>
+
+                    <h3>1. Uso da Licença</h3>
+                    <p>É concedida permissão para usar a plataforma Meu Caderno Digital exclusivamente para fins pessoais, educacionais e não comerciais.</p>
+
+                    <h3>2. Isenção de responsabilidade</h3>
+                    <p>Os materiais no site da Meu Caderno Digital são fornecidos 'como estão'. Não oferecemos garantias, expressas ou implícitas.</p>
+
+                    <h3>3. Limitações</h3>
+                    <p>Em nenhum caso o Meu Caderno Digital será responsável por quaisquer danos decorrentes do uso ou da incapacidade de usar os materiais.</p>
+
+                    <h3>4. Precisão dos materiais</h3>
+                    <p>Não garantimos que qualquer material em seu site seja preciso, completo ou atual, visto que o conteúdo é gerado pelos próprios usuários.</p>
+
+                    <h3 style="color: #e74c3c;">5. Conduta e Conteúdo Proibido</h3>
+                    <p>Para manter a integridade e a segurança da comunidade, é estritamente <strong>proibido</strong> criar, armazenar ou compartilhar resumos que contenham:</p>
+                    <ul>
+                        <li>Conteúdo ilegal, criminoso ou que viole direitos autorais.</li>
+                        <li>Discurso de ódio, racismo, homofobia, xenofobia ou qualquer forma de discriminação.</li>
+                        <li>Conteúdo sexualmente explícito, pornográfico ou obsceno.</li>
+                        <li>Ameaças, assédio, bullying ou incentivo à violência e automutilação.</li>
+                        <li>Informações falsas deliberadas (Fake News) ou conteúdo difamatório.</li>
+                    </ul>
+                    <p>O Meu Caderno Digital se reserva o direito de <strong>remover imediatamente</strong> qualquer conteúdo que viole estas regras e de <strong>suspender ou banir</strong> a conta do usuário responsável, sem aviso prévio.</p>
+
+                    <hr class="settings-divider">
+                    
+                    <p style="font-size: 12px; opacity: 0.7;">Última atualização: Novembro de 2025</p>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>
