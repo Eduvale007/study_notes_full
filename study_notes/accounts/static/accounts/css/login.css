@@ -281,3 +281,30 @@ body {
     color: #5dade2; /* Azul um pouco mais claro ao passar o mouse */
     border-bottom: 1px solid #5dade2; /* Sublinhado ao passar o mouse */
 }
+
+
+/* Mensagem de erro pequena abaixo do input */
+.input-error-msg {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #ff6b6b; /* Vermelho suave */
+    font-size: 12px;
+    margin-top: 8px;
+    font-weight: 500;
+    animation: fadeIn 0.3s ease;
+}
+
+.input-error-msg i {
+    font-size: 14px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Se quiser que a borda do input fique vermelha também quando der erro */
+.input-error-border {
+    border-color: #ff6b6b !important;
+}

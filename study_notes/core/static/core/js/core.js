@@ -327,6 +327,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 .then(res => res.json())
                 .then(data => {
                     if (data.success) {
+
+                        const emptyMsg = document.getElementById('empty-state-msg');
+                        if (emptyMsg) {
+                            emptyMsg.remove();
+                        }
+
                         addDisciplineToSidebar(formattedDiscipline);
                         const newCard = document.createElement('article');
                         newCard.className = `summary-card ${selectedColor}`;
@@ -423,5 +429,42 @@ document.addEventListener('DOMContentLoaded', () => {
     function canOpenModal() {
         // Só abre se não tiver outro modal aberto
         return !(welcomeCardOverlay.classList.contains('active') || avatarMenuModal.classList.contains('active') || readModalOverlay.classList.contains('active'));
+    }
+
+  // --- BOTÃO DE TEMA NA SIDEBAR (CORRIGIDO) ---
+    const sidebarThemeBtn = document.getElementById('sidebar-theme-toggle');
+    
+    if (sidebarThemeBtn) {
+        const icon = sidebarThemeBtn.querySelector('i');
+        
+        // Função auxiliar para checar o tema no HTML
+        function isLightMode() {
+            return document.documentElement.classList.contains('light-mode');
+        }
+
+        // 1. Ajusta o ícone ao carregar
+        if (isLightMode()) {
+            icon.classList.replace('ph-sun', 'ph-moon');
+        } else {
+             // Garante o ícone certo se for escuro
+            icon.classList.replace('ph-moon', 'ph-sun');
+        }
+
+        // 2. Ação do clique
+        sidebarThemeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            
+            // Chama a função global do theme.js
+            if (typeof toggleTheme === "function") {
+                toggleTheme();
+            }
+
+            // Atualiza o ícone
+            if (isLightMode()) {
+                icon.classList.replace('ph-sun', 'ph-moon');
+            } else {
+                icon.classList.replace('ph-moon', 'ph-sun');
+            }
+        });
     }
 });

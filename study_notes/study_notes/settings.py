@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-xd7x1baltzy_g(+4&co5lubfjsy$*vgx$a11-h#2n0^m+n2ygr
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -180,3 +180,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Custom User model
 AUTH_USER_MODEL = 'accounts.Usuario'
+
+CSRF_TRUSTED_ORIGINS = ['https://*.ngrok-free.app',
+                        'https://wedgier-yasmine-hoopless.ngrok-free.dev']

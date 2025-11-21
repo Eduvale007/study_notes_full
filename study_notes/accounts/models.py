@@ -2,15 +2,13 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 
 # Create your models here.
-# ===================================
-# (CORRIGIDO) O "Manager" 
-# ===================================
+
 class UsuarioManager(BaseUserManager):
     """
     Manager customizado para o modelo Usuario, onde o email é o identificador.
     """
     
-    # (CORRIGIDO) A função agora aceita 'nome' diretamente
+    #  A função agora aceita 'nome' diretamente
     def create_user(self, email, nome, password=None, **extra_fields):
         """
         Cria e salva um usuário normal com email e senha.
@@ -28,7 +26,7 @@ class UsuarioManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    # (CORRIGIDO) A função agora aceita 'nome' diretamente
+    # A função agora aceita 'nome' diretamente
     def create_superuser(self, email, nome, password=None, **extra_fields):
         """
         Cria e salva um Superusuário. É esta função que o 'createsuperuser' vai chamar.

@@ -13,6 +13,8 @@
 </head>
 <body>
 
+    
+
     <div class="form-wrapper">
         
         <div class="login-header">
@@ -21,7 +23,7 @@
         </div>
         
         <div class="form-container" id="form-container">
-            
+      
             <div class="form-toggle">
                 <button id="login-tab" class="toggle-btn active">Entrar</button>
                 <button id="register-tab" class="toggle-btn">Cadastrar</button>
@@ -53,6 +55,15 @@
                         <i class="ph ph-lock"></i>
                         <input type="password" id="password" placeholder="Sua senha" name="senha">
                     </div>
+                    {% if messages %}
+                        {% for message in messages %}
+                            {% if 'error' in message.tags %}
+                                <span class="input-error-msg">
+                                    <i class="ph ph-warning-circle"></i> {{ message }}
+                                </span>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
                 </div>
 
                 <div class="form-group register-field">
@@ -64,7 +75,7 @@
                 </div>
 
                 <div class="form-group register-field terms-wrapper">
-                    <input type="checkbox" id="termos" name="termos" required>
+                    <input type="checkbox" id="termos" name="termos" >
                     <label for="termos">
                         Li e aceito os 
                         <a href="{% url 'termos' %}" target="_blank">Termos de Uso</a>

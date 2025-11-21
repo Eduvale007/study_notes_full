@@ -1,0 +1,19 @@
+/* core/static/core/css/light_theme.css */
+
+/* IMPORTANTE: Usar :root.light-mode garante que funcione 
+   independente de onde o JS coloca a classe (html ou body)
+*/
+:root.light-mode {
+    /* Fundos Claros */
+    --bg-body: #F0F2F5;       /* Cinza bem claro (confortável) */
+    --bg-sidebar: #FFFFFF;    /* Branco */
+    --bg-input: #FFFFFF;      /* Branco */
+    --bg-card: #FFFFFF;       /* Branco */
+    
+    /* Bordas e Linhas */
+    --border-color: #E1E1E6;  /* Cinza claro */
+    
+    /* Textos Escuros */
+    --text-primary: #121214;  /* Preto quase total */
+    --text-secondary: #757575;/* Cinza médio */
+}

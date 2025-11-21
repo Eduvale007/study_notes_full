@@ -7,6 +7,72 @@
     box-sizing: border-box;
 }
 
+/* ========================================================= */
+/* 1. VARIÁVEIS GLOBAIS (DEFINIÇÃO DAS CORES) */
+/* ========================================================= */
+:root {
+    /* --- CORES DE FUNDO (Dark Mode Padrão) --- */
+    --bg-body: #1A1D24;       /* Fundo principal (Main) */
+    --bg-sidebar: #1a2533;    /* Fundo da Sidebar */
+    --bg-surface: #2B2F3A;    /* Fundo de Modais, Inputs e Barra de Busca */
+    --bg-hover: #2c3e50;      /* Fundo ao passar o mouse (Sidebar) */
+    --bg-tag: #34495e;        /* Fundo das Tags */
+    
+    /* --- BORDAS --- */
+    --border-color: #444957;  /* Cor das bordas de inputs e divisórias */
+    --border-sidebar: #2c3e50; /* Borda específica da sidebar */
+    
+    /* --- TEXTOS --- */
+    --text-primary: #FFFFFF;  /* Branco puro (Títulos) */
+    --text-secondary: #bdc3c7;/* Cinza claro (Textos secundários, ícones) */
+    --text-secondary-one:#E0E0E0;
+    --text-placeholder: #AAAAAA; /* Texto de placeholder */
+    --text-muted: #7f8c8d;    /* Cinza médio */
+    --text-muted-one: #ecf0f1;
+    --text-primary-one:#fff;
+    --text-primary-seven: #777;
+    --text-primary-five: #555;
+    
+    /* --- DESTAQUES (Brand Colors) --- */
+    --primary-color: #3498db; /* Azul Principal */
+    --primary-hover: #2980b9; /* Azul Escuro (Hover) */
+    --danger-color: #e74c3c;  /* Vermelho (Sair/Deletar) */
+    
+    /* --- CORES DOS CARDS (Adesivos) --- */
+    --card-blue: #2E86C1;
+    --card-green: #28B463;
+    --card-purple: #8E44AD;
+    --card-orange: #E67E22;
+}
+
+
+:root.light-mode {
+    --bg-body: #F0F2F5;       /* Cinza bem claro */
+    --bg-sidebar: #FFFFFF;    /* Branco */
+    --bg-surface: #FFFFFF;    /* Branco */
+    --bg-hover:  rgba(0, 0, 0, 0.7);      /* Cinza claro */
+    --bg-tag: #E1E1E6;        /* Cinza para tags */
+    
+    --border-color: #E1E1E6;
+    --border-sidebar: #E1E1E6;
+    
+    --text-primary: #121214;  /* Preto */
+    --text-secondary: #757575;/* Cinza escuro */
+    --text-secondary-one: #1A1D24;/* Cinza escuro */
+    --text-placeholder: #9ca3af;
+    --text-muted: #6b7280;
+    --text-muted-one:  #555;
+    --danger-color: #f3c600;
+
+
+    --card-blue: #a6d2ed;
+    --card-green: #a8d4c5;
+    --card-purple: #ada8c8;
+    --card-orange: #e9b59d;
+    
+    /* As cores dos cards e botões principais mantêm o padrão vibrante */
+}
+
 body {
     font-family: 'Inter', sans-serif;
     background-color: #f4f7f6;
@@ -23,8 +89,8 @@ body {
 /* ===== BARRA LATERAL (SIDEBAR) ===== */
 .sidebar {
     width: 260px;
-    background-color: #1a2533; /* Azul bem escuro */
-    color: #ecf0f1;
+    background-color: var(--bg-sidebar); /* Azul bem escuro */
+    color: var(--text-muted-one);
     padding: 24px;
     display: flex;
     flex-direction: column;
@@ -34,14 +100,14 @@ body {
 }
 
 .sidebar-header h2 {
-    color: #fff;
+    color: var(--text-primary);
     text-align: center;
     margin-bottom: 24px;
 }
 
 .btn-new-summary {
-    background-color: #3498db; /* Azul primário */
-    color: #fff;
+    background-color: var(--primary-color); /* Azul primário */
+    color: var(--text-primary-one);
     border: none;
     border-radius: 6px;
     padding: 12px;
@@ -57,7 +123,7 @@ body {
 }
 
 .btn-new-summary:hover {
-    background-color: #2980b9;
+    background-color: var(--primary-hover);
 }
 
 .sidebar-nav {
@@ -71,7 +137,7 @@ body {
 
 .sidebar-nav li a,
 .sidebar-section li a {
-    color: #bdc3c7; /* Cinza claro */
+    color: var(--text-secondary); /* Cinza claro */
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -84,13 +150,13 @@ body {
 
 .sidebar-nav li a:hover,
 .sidebar-section li a:hover {
-    background-color: #2c3e50;
-    color: #fff;
+    background-color: var(--bg-hover);
+    color: var(--text-primary-one);
 }
 
 .sidebar-nav li.active a {
-    background-color: #2c3e50;
-    color: #fff;
+    background-color: var(--bg-hover);
+    color: var(--text-primary-one);
     font-weight: 700;
 }
 
@@ -99,7 +165,7 @@ body {
 }
 
 .sidebar-section h3 {
-    color: #7f8c8d; /* Cinza médio */
+    color: var(--text-muted); /* Cinza médio */
     font-size: 13px;
     font-weight: 500;
     text-transform: uppercase;
@@ -111,7 +177,7 @@ body {
 /* COLE ISSO NO LUGAR: */
 .sidebar-footer {
     margin-top: auto; /* Empurra para o rodapé */
-    border-top: 1px solid #2c3e50;
+    border-top: 1px solid var(--bg-hover);
     padding: 16px 8px; /* Ajusta o padding */
     display: flex;
     justify-content: space-between;
@@ -136,7 +202,7 @@ body {
 }
 
 .user-name {
-    color: #ecf0f1;
+    color: var(--text-muted-one);
     font-weight: 500;
     font-size: 14px;
     /* Caso o nome seja muito longo */
@@ -151,7 +217,7 @@ body {
 }
 
 .logout-icon {
-    color: #bdc3c7;
+    color: var(--text-secondary);
     text-decoration: none;
     padding: 6px;
     border-radius: 5px;
@@ -166,8 +232,8 @@ body {
 }
 
 .logout-icon:hover {
-    color: #e74c3c; /* Vermelho para logout */
-    background-color: #2c3e50;
+    color: var(--danger-color); /* Vermelho para logout */
+    background-color: var(--bg-hover);
 }
 
 /* ===== ÍCONES (i) ===== */
@@ -179,8 +245,8 @@ i.ph {
     flex: 1; /* Ocupa o resto do espaço */
     margin-left: 260px; /* Libera espaço para a sidebar fixa */
     padding: 32px;
-    background-color: #1A1D24; /* Fundo escuro da imagem */
-    color: #FFFFFF; /* Texto padrão branco */
+    background-color: var(--bg-body); /* Fundo escuro da imagem */
+    color: var(--text-primary); /* Texto padrão branco */
 }
 
 .main-header {
@@ -204,13 +270,13 @@ i.ph {
     padding-left: 50px; /* Espaço para o ícone */
     border-radius: 10px;
     border: none; /* Remove a borda */
-    background-color: #2B2F3A; /* Fundo da barra de busca */
+    background-color: var(--bg-surface); /* Fundo da barra de busca */
     font-size: 16px;
-    color: #FFFFFF; /* Cor do texto ao digitar */
+    color: var(--text-primary); /* Cor do texto ao digitar */
 }
 
 .search-bar input::placeholder {
-    color: #AAAAAA; /* Cor do texto placeholder */
+    color: var(--text-placeholder); /* Cor do texto placeholder */
 }
 
 .search-bar i {
@@ -218,7 +284,7 @@ i.ph {
     left: 18px;
     top: 50%;
     transform: translateY(-50%);
-    color: #AAAAAA; /* Cor do ícone */
+    color: var(--text-placeholder); /* Cor do ícone */
     font-size: 20px;
 }
 
@@ -227,7 +293,7 @@ i.ph {
     font-size: 24px;
     font-weight: 700;
     margin-bottom: 20px;
-    color: #FFFFFF; /* Título "Resumos Recentes" em branco */
+    color: var(--text-primary); /* Título "Resumos Recentes" em branco */
 }
 
 .grid-container {
@@ -244,7 +310,7 @@ i.ph {
     position: relative;
     border-radius: 12px; /* Bordas arredondadas */
     padding: 24px;
-    color: #FFFFFF; /* Texto de dentro do card em branco */
+    color: var(--text-primary); /* Texto de dentro do card em branco */
     min-height: 140px; /* Altura mínima para parecer um bloco */
     
     display: flex;
@@ -263,7 +329,7 @@ i.ph {
     font-size: 22px;
     font-weight: 700;
     margin-bottom: 8px;
-    color: #FFFFFF;
+    color: var(--text-primary);
 }
 
 /* Removemos o <p> e .card-footer, então seus estilos não são necessários */
@@ -277,16 +343,16 @@ i.ph {
 
 /* ===== CORES DOS CARDS ===== */
 .card-blue {
-    background-color: #2E86C1;
+    background-color: var(--card-blue);
 }
 .card-green {
-    background-color: #28B463;
+    background-color: var(--card-green);
 }
 .card-purple {
-    background-color: #8E44AD;
+    background-color: var(--card-purple);
 }
 .card-orange {
-    background-color: #E67E22;
+    background-color: var(--card-orange);
 }
 /* ===== NOVOS ESTILOS DO MODAL (DARK MODE) ===== */
 .modal-overlay {
@@ -311,7 +377,7 @@ i.ph {
 }
 
 .modal-content {
-    background-color: #2B2F3A; /* Fundo escuro do modal */
+    background-color: var(--bg-surface); /* Fundo escuro do modal */
     padding: 24px 30px;
     border-radius: 12px;
     width: 90%;
@@ -319,7 +385,7 @@ i.ph {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     transform: translateY(-20px);
     transition: transform 0.3s ease;
-    border-top: 4px solid #3498db; /* Destaque azul */
+    border-top: 4px solid var(--primary-color); /* Destaque azul */
 }
 
 .modal-overlay.active .modal-content {
@@ -332,12 +398,12 @@ i.ph {
     align-items: center;
     margin-bottom: 24px;
     padding-bottom: 16px;
-    border-bottom: 1px solid #444957; /* Borda escura */
+    border-bottom: 1px solid var(--border-color); /* Borda escura */
 }
 
 .modal-header h2 {
     font-size: 22px;
-    color: #FFFFFF; /* Texto branco */
+    color: var(--text-primary); /* Texto branco */
 }
 
 .close-modal-btn {
@@ -345,11 +411,11 @@ i.ph {
     border: none;
     font-size: 24px;
     cursor: pointer;
-    color: #bdc3c7; /* Cinza claro */
+    color: var(--text-secondary); /* Cinza claro */
     transition: color 0.2s;
 }
 .close-modal-btn:hover {
-    color: #FFFFFF;
+    color: var(--text-primary);
 }
 
 .modal-form {
@@ -368,7 +434,7 @@ i.ph {
 
 .modal-form label {
     font-weight: 500;
-    color: #E0E0E0; /* Texto do label branco-acinzentado */
+    color: var(--text-secondary-one); /* Texto do label branco-acinzentado */
     font-size: 14px;
 }
 
@@ -382,7 +448,7 @@ i.ph {
     left: 14px;
     top: 50%;
     transform: translateY(-50%);
-    color: #777;
+    color: var(--text-primary-seven);
     font-size: 18px;
 }
 
@@ -396,12 +462,12 @@ i.ph {
     width: 100%;
     padding: 12px 16px;
     padding-left: 45px; /* Espaço para o ícone */
-    border: 1px solid #444957; /* Borda escura */
+    border: 1px solid var(--border-color); /* Borda escura */
     border-radius: 8px;
     font-size: 15px;
     font-family: 'Inter', sans-serif;
-    background-color: #1A1D24; /* Fundo do input (igual ao do painel) */
-    color: #FFFFFF; /* Texto digitado em branco */
+    background-color: var(--bg-body); /* Fundo do input (igual ao do painel) */
+    color: var(--text-primary); /* Texto digitado em branco */
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
@@ -413,20 +479,20 @@ i.ph {
     padding-right: 40px; /* Espaço para a seta customizada */
 }
 .modal-form select option {
-    background: #2B2F3A;
-    color: white;
+    background: var(--bg-surface);
+    color: var(--text-primary-one);
 }
 
 /* Estilo SÓ para o textarea (sem padding-left) */
 .modal-form textarea {
     width: 100%;
     padding: 12px 16px; /* Padding original, sem 45px à esquerda */
-    border: 1px solid #444957;
+    border: 1px solid var(--border-color);
     border-radius: 8px;
     font-size: 15px;
     font-family: 'Inter', sans-serif;
-    background-color: #1A1D24;
-    color: #FFFFFF;
+    background-color: var(--bg-body);
+    color: var(--text-primary);
     transition: border-color 0.2s, box-shadow 0.2s;
     resize: vertical;
 }
@@ -437,7 +503,7 @@ i.ph {
 .modal-form select:focus,
 .modal-form textarea:focus {
     outline: none;
-    border-color: #3498db; /* Borda azul ao focar */
+    border-color: var(--primary-hover); /* Borda azul ao focar */
     box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.3);
 }
 
@@ -469,21 +535,21 @@ i.ph {
 }
 
 /* Define as cores dos círculos */
-.color-option.blue { background-color: #2E86C1; }
-.color-option.green { background-color: #28B463; }
-.color-option.purple { background-color: #8E44AD; }
-.color-option.orange { background-color: #E67E22; }
+.color-option.blue { background-color: var(--card-blue); }
+.color-option.green { background-color: var(--card-green); }
+.color-option.purple { background-color: var(--card-purple); }
+.color-option.orange { background-color: var(--card-orange); }
 
 /* Mostra qual cor está selecionada */
 .color-selector input[type="radio"]:checked + .color-option {
-    border-color: #FFFFFF;
+    border-color: var(--text-primary);
     transform: scale(1.1);
 }
 
 /* Botão Salvar */
 .btn-submit {
-    background-color: #3498db;
-    color: white;
+    background-color: var(--primary-color);
+    color: var(--text-primary-one);
     padding: 14px 20px;
     border: none;
     border-radius: 8px;
@@ -496,7 +562,7 @@ i.ph {
 }
 
 .btn-submit:hover {
-    background-color: #2980b9;
+    background-color: var(--primary-hover);
 }
 .btn-submit:active {
     transform: scale(0.98);
@@ -510,7 +576,7 @@ i.ph {
     
     background: rgba(0, 0, 0, 0.2); /* Fundo levemente escuro */
     border: none;
-    color: #FFFFFF; /* Cor do 'X' */
+    color: var(--text-primary); /* Cor do 'X' */
     font-size: 16px; /* Tamanho do 'X' */
     cursor: pointer;
     
@@ -554,7 +620,7 @@ i.ph {
     
     background: rgba(0, 0, 0, 0.2);
     border: none;
-    color: #FFFFFF;
+    color: var(--text-primary);
     font-size: 16px;
     cursor: pointer;
     
@@ -610,7 +676,7 @@ i.ph {
 }
 
 .welcome-card-content {
-    background-color: #2B2F3A; /* Fundo do card (igual ao modal) */
+    background-color: var(--bg-surface); /* Fundo do card (igual ao modal) */
     padding: 30px;
     border-radius: 12px;
     max-width: 400px;
@@ -620,8 +686,8 @@ i.ph {
     transform: translateY(-20px);
     transition: transform 0.3s ease;
     position: relative;
-    color: #FFFFFF; /* Cor do texto */
-    border-top: 4px solid #3498db; /* Destaque azul */
+    color: var(--text-primary); /* Cor do texto */
+    border-top: 4px solid var(--primary-color); /* Destaque azul */
 }
 
 .welcome-card-overlay.active .welcome-card-content {
@@ -637,12 +703,12 @@ i.ph {
 .welcome-card-content h3 {
     font-size: 24px;
     margin-bottom: 10px;
-    color: #3498db; /* Cor do título */
+    color: var(--primary-color); /* Cor do título */
 }
 
 .welcome-card-content p {
     font-size: 16px;
-    color: #E0E0E0;
+    color: var(--text-secondary-one);
     margin-bottom: 0;
 }
 
@@ -654,11 +720,11 @@ i.ph {
     border: none;
     font-size: 28px;
     cursor: pointer;
-    color: #bdc3c7;
+    color:var(--text-secondary);
     transition: color 0.2s;
 }
 .close-welcome-card-btn:hover {
-    color: #FFFFFF;
+    color: var(--text-primary);
 }
 
 /* =================================== */
@@ -704,7 +770,7 @@ i.ph {
 
 /* O Conteúdo do Modal (a caixa no meio) */
 .avatar-menu-content {
-    background-color: #2B2F3A;
+    background-color: var(--bg-surface);
     padding: 24px 30px;
     border-radius: 12px;
     width: 90%;
@@ -712,7 +778,7 @@ i.ph {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     transform: translateY(-20px);
     transition: transform 0.3s ease;
-    border-top: 4px solid #3498db;
+    border-top: 4px solid var(--primary-color);
     position: relative;
 }
 
@@ -727,12 +793,12 @@ i.ph {
     align-items: center;
     margin-bottom: 24px;
     padding-bottom: 16px;
-    border-bottom: 1px solid #444957;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .avatar-menu-header h2 {
     font-size: 20px;
-    color: #FFFFFF;
+    color: var(--text-primary);
 }
 
 .close-avatar-btn {
@@ -740,11 +806,11 @@ i.ph {
     border: none;
     font-size: 28px;
     cursor: pointer;
-    color: #bdc3c7;
+    color: var(--text-secondary);
     transition: color 0.2s;
 }
 .close-avatar-btn:hover {
-    color: #FFFFFF;
+    color: var(--text-primary);
 }
 
 /* Grade de Avatares */
@@ -761,25 +827,25 @@ i.ph {
     height: 80px;
     border-radius: 50%;
     cursor: pointer;
-    border: 3px solid transparent;
+    border: 5px 3px solid transparent;
     transition: all 0.2s ease-out;
     object-fit: cover;
 }
 .avatar-option:hover {
     transform: scale(1.05);
-    border-color: #555;
+    border-color: var(--text-primary-five);
 }
 
 /* Classe que o JS vai adicionar ao avatar selecionado */
 .avatar-option.selected {
-    border-color: #3498db;
+    border-color: var(--primary-color);
     transform: scale(1.05);
     box-shadow: 0 0 15px rgba(52, 152, 219, 0.5);
 }
 
 /* Botão Salvar */
 .btn-save-avatar {
-    background-color: #3498db;
+    background-color: var(--primary-color);
     color: white;
     padding: 14px 20px;
     border: none;
@@ -791,7 +857,7 @@ i.ph {
     transition: background-color 0.2s ease, transform 0.1s ease;
 }
 .btn-save-avatar:hover {
-    background-color: #2980b9;
+    background-color: var(--primary-hover);
 }
 .btn-save-avatar:active {
     transform: scale(0.98);
@@ -825,7 +891,7 @@ i.ph {
 }
 
 .read-modal-content {
-    background-color: #2B2F3A;
+    background-color: var(--bg-surface);
     padding: 24px 30px;
     border-radius: 12px;
     width: 90%;
@@ -834,7 +900,7 @@ i.ph {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     transform: translateY(-20px);
     transition: transform 0.3s ease;
-    border-top: 4px solid #3498db;
+    border-top: 4px solid var(--primary-color);
     
     /* Para habilitar a rolagem SÓ do conteúdo */
     display: flex;
@@ -851,13 +917,13 @@ i.ph {
     align-items: center;
     margin-bottom: 20px;
     padding-bottom: 16px;
-    border-bottom: 1px solid #444957;
+    border-bottom: 1px solid var(--border-color);
     flex-shrink: 0; /* Impede que o header encolha */
 }
 
 .read-modal-header h2 {
     font-size: 20px;
-    color: #FFFFFF;
+    color: var(--text-primary);
 }
 
 .close-read-modal-btn {
@@ -865,18 +931,18 @@ i.ph {
     border: none;
     font-size: 28px;
     cursor: pointer;
-    color: #bdc3c7;
+    color: var(--text-secondary);
     transition: color 0.2s;
 }
 .close-read-modal-btn:hover {
-    color: #FFFFFF;
+    color: var(--text-primary);
 }
 
 /* Corpo do Modal (onde o texto aparece) */
 .read-modal-body {
     flex: 1; /* Ocupa o espaço restante */
     overflow-y: auto; /* Adiciona scroll se o texto for longo */
-    color: #E0E0E0;
+    color: var(--text-secondary-one);
     font-size: 16px;
     line-height: 1.6;
     overflow-x: hidden;
@@ -896,7 +962,7 @@ i.ph {
     
     background: rgba(0, 0, 0, 0.2);
     border: none;
-    color: #FFFFFF;
+    color: var(--text-primary);
     font-size: 16px;
     cursor: pointer;
     
@@ -926,8 +992,8 @@ i.ph {
 .menu-toggle-btn {
     display: none; /* Escondido no Desktop */
     background: none;
-    border: 1px solid #444957;
-    color: #E0E0E0;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary-one);
     font-size: 24px;
     padding: 6px 10px;
     border-radius: 8px;
@@ -935,7 +1001,7 @@ i.ph {
     transition: background-color 0.2s;
 }
 .menu-toggle-btn:hover {
-    background-color: #2B2F3A;
+    background-color: var(--bg-surface);
 }
 
 

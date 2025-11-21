@@ -13,12 +13,12 @@ def home(request):
         # 1. Busca os resumos
         resumos = Resumo.objects.filter(usuario=request.user).order_by('-criado_em')
         
-        # 2. (NOVO) Busca as disciplinas únicas (DISTINCT) deste usuário
+        # 2.  Busca as disciplinas únicas (DISTINCT) deste usuário
         # O 'values_list' pega só o texto da coluna 'disciplina'
         # O 'flat=True' transforma em uma lista simples de strings ['História', 'Cálculo'...]
         lista_disciplinas_bruta = Resumo.objects.filter(usuario=request.user).values_list('disciplina', flat=True).distinct().order_by('disciplina')
 
-        # 3. (OPCIONAL) Lógica para colocar ícones (igual ao seu JS)
+        # 3.  Lógica para colocar ícones (igual ao seu JS)
         # Vamos criar uma lista de dicionários para o HTML usar
         icon_map = {
             'Artes': 'ph-paint-brush', 'Biologia': 'ph-dna', 'Filosofia': 'ph-scroll',
@@ -39,7 +39,7 @@ def home(request):
     })
 
 
-# (NOVO) API PARA CRIAR RESUMO
+#  API PARA CRIAR RESUMO
 @login_required
 def create_summary(request):
     if request.method == 'POST':
@@ -68,7 +68,7 @@ def create_summary(request):
     return JsonResponse({'success': False, 'error': 'Método não permitido'}, status=405)
 
 
-# (NOVO) API PARA ATUALIZAR RESUMO
+#  API PARA ATUALIZAR RESUMO
 @login_required
 def update_summary(request, pk):
     if request.method == 'POST':

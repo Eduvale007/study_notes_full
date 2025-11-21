@@ -9,7 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meu Caderno Digital</title>
     <link rel="stylesheet" href="{% static 'core/css/core.css'%}">
+    <link rel="stylesheet" href="{% static 'core/css/light_theme.css' %}">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="{% static 'core/js/theme.js' %}"></script>
 </head>
 <body>
     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
@@ -56,31 +58,44 @@
                     </ul>
             </div>
         
-            <div class="sidebar-footer">
+          <div class="sidebar-footer">
 
-    {% if user.is_authenticated %}
-        
-        <div class="user-profile">
-            <button id="user-avatar-button" class="user-avatar-button">
-                <img src="{{ user.avatar_url|default_if_none:'/static/core/img-profile/bookie-acenando.jpg' }}" alt="Foto do Usuário" class="user-avatar" id="user-avatar-img">
-            </button>
-            <span class="user-name">{{ user.nome }}</span>
-        </div>
-        
-        <a href="{% url 'logout' %}" id="logout-btn" class="logout-icon" title="Sair">
-            <i class="ph ph-sign-out"></i>
-        </a>
+                {% if user.is_authenticated %}
+                    
+                    <div class="user-profile">
+                        <button id="user-avatar-button" class="user-avatar-button">
+                            <img src="{{ user.avatar_url|default_if_none:'/static/core/img-profile/bookie-acenando.jpg' }}" alt="Foto do Usuário" class="user-avatar" id="user-avatar-img">
+                        </button>
+                        <span class="user-name">{{ user.nome }}</span>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        
+                        <button id="sidebar-theme-toggle" class="logout-icon" title="Mudar Tema" style="background: none; border: none; cursor: pointer;">
+                            <i class="ph ph-moon"></i>
+                        </button>
 
-    {% else %}
+                        <a href="{% url 'logout' %}" id="logout-btn" class="logout-icon" title="Sair">
+                            <i class="ph ph-sign-out"></i>
+                        </a>
+                    </div>
 
-        <div class="user-profile">
-            <button class="user-avatar-button" disabled> <img src="{% static 'core/img-profile/bookie-acenando.jpg'%}" alt="Foto do Usuário" class="user-avatar" id="user-avatar-img">
-            </button>
-            <a href="{% url 'pagina_login' %}" class="user-name">Fazer Login</a>
-        </div>
-        {% endif %}
+                {% else %}
 
-</div>
+                    <div class="user-profile">
+                        <button class="user-avatar-button" disabled> 
+                            <img src="{% static 'core/img-profile/bookie-acenando.jpg'%}" alt="Foto do Usuário" class="user-avatar" id="user-avatar-img">
+                        </button>
+                        <a href="{% url 'pagina_login' %}" class="user-name">Fazer Login</a>
+                    </div>
+                    
+                    <button id="sidebar-theme-toggle" class="logout-icon" title="Mudar Tema" style="background: none; border: none; cursor: pointer;">
+                        <i class="ph ph-moon"></i>
+                    </button>
+
+                {% endif %}
+
+            </div>
         </aside>
         <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
@@ -126,7 +141,7 @@
                     </article>
 
                 {% empty %}
-                    <div style="grid-column: 1/-1; text-align: center; color: #888; margin-top: 40px;">
+                    <div id="empty-state-msg" style="grid-column: 1/-1; text-align: center; color: #888; margin-top: 40px;">
                         <i class="ph ph-files" style="font-size: 48px; margin-bottom: 10px;"></i>
                         <p>Você ainda não tem resumos salvos.</p>
                         <p>Clique em "Novo Resumo" para começar!</p>

@@ -4,6 +4,7 @@ from django.contrib.auth.hashers import make_password, check_password # <-- IMPO
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.core.cache import cache
 import json
 
 from .models import Usuario
@@ -42,7 +43,7 @@ def registrar_usuario(request):
         )
         usuario.save()
 
-        messages.success(request, "Conta criada com sucesso! Faça login.")
+       
         return redirect('login')
 
     # A view 'registrar_usuario' deve renderizar o template de login.html também
@@ -50,46 +51,62 @@ def registrar_usuario(request):
     return render(request, 'accounts/index.html')
 
 
-# ===================================
-# FUNÇÃO CORRIGIDA
-# ===================================
+
 def login_usuario(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         senha = request.POST.get('senha')
 
+        # --- CONFIGURAÇÕES DE SEGURANÇA ---
+        MAX_TENTATIVAS = 5
+        TEMPO_BLOQUEIO = 60 * 60  # 1 hora em segundos (3600)
+        
+        # Cria uma chave única para identificar as tentativas deste e-mail
+        cache_key = f"login_attempts_{email}"
+        
+        # 1. Verifica se o usuário já está bloqueado
+        tentativas_atuais = cache.get(cache_key, 0)
+        
+        if tentativas_atuais >= MAX_TENTATIVAS:
+            messages.error(request, "Muitas tentativas falhas. Sua conta foi temporariamente bloqueada por 1 hora.")
+            return render(request, 'accounts/index.html')
+
         try:
-            # 1. Tenta encontrar o usuário pelo email
             user = Usuario.objects.get(email=email)
 
-            # 2. Checa se o usuário é "local" e se a senha bate
-            #    A sua view 'registrar_usuario' salva a senha em 'senha_hash'
+            # 2. Verifica a senha
             if user.provedor == 'local' and check_password(senha, user.senha_hash):
                 
-                # 3. Se tudo deu certo, faz o login
-                # (Importante: precisamos logar o usuário com o backend 'ModelBackend'
-                #  já que não usamos authenticate)
-                user.backend = 'django.contrib.auth.backends.ModelBackend' # Linha necessária
-                login(request, user)
+                # SUCESSO: Limpa o histórico de erros (zera o contador)
+                cache.delete(cache_key)
                 
-                # CUIDADO: O 'redirect' deve ser para o NOME da sua rota do painel
-                # Se for o app principal, o nome da rota é 'index' ou 'home'?
-                # Vou manter 'dashboard' como placeholder.
-                return redirect('/') 
+                user.backend = 'django.contrib.auth.backends.ModelBackend'
+                login(request, user)
+                return redirect('home') 
             else:
-                # Senha incorreta ou usuário do Google tentando logar localmente
-                messages.error(request, "Email ou senha incorretos.")
-                return redirect('login')
+                # SENHA ERRADA
+                raise ValueError("Senha incorreta") # Força ir para o except abaixo
 
-        except Usuario.DoesNotExist:
-            # Usuário não encontrado
-            messages.error(request, "Email ou senha incorretos.")
+        except (Usuario.DoesNotExist, ValueError):
+            # FALHA (Usuário não existe OU Senha errada)
+            
+            # Incrementa o contador de erros no cache
+            novas_tentativas = tentativas_atuais + 1
+            
+            # Salva no cache com o tempo de expiração de 1 hora
+            cache.set(cache_key, novas_tentativas, TEMPO_BLOQUEIO)
+            
+            tentativas_restantes = MAX_TENTATIVAS - novas_tentativas
+            
+            if tentativas_restantes > 0:
+                messages.error(request, f"Email ou senha incorretos.")
+            else:
+                messages.error(request, "Muitas tentativas. Conta bloqueada por 1 hora.")
+            
             return redirect('login')
 
     return render(request, 'accounts/index.html')
-# ===================================
-# FIM DA CORREÇÃO
-# ===================================
+
 
 
 
@@ -123,7 +140,7 @@ def atualizar_perfil(request):
 
 # accounts/views.py
 
-# (NOVO) VIEW DA API PARA ATUALIZAR O AVATAR
+#  VIEW DA API PARA ATUALIZAR O AVATAR
 @login_required # Garante que só usuários logados possam chamar
 def update_avatar(request):
     
@@ -177,12 +194,11 @@ def configuracoes(request):
 
         user.save()
         messages.success(request, "Perfil atualizado!")
-        return redirect('home') # Note o novo nome da rota
+        return redirect('home')
 
-    # Note que agora o template vai ficar dentro da pasta 'accounts'
     return render(request, 'accounts/settings.html')
 
 
 def termos_view(request):
-    # MUDANÇA AQUI: Agora aponta para a pasta 'accounts'
+  
     return render(request, 'accounts/termos.html')

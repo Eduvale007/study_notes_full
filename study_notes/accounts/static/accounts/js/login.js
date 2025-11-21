@@ -1,61 +1,65 @@
-
-
-// Espera a página carregar
-
+// login.js
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    
-
-    // Pega os elementos
+    // Elementos das Abas e Container
     const loginTab = document.getElementById('login-tab');
     const registerTab = document.getElementById('register-tab');
     const formContainer = document.getElementById('form-container');
     const submitBtn = document.getElementById('submit-btn');
-
-    // Pega o formulário
     const dynamicForm = document.getElementById('dynamic-form');
     
-    // Pega as URLs que passamos do Django
+    // URLs do Django
     const loginUrl = dynamicForm.dataset.loginUrl;
     const registerUrl = dynamicForm.dataset.registerUrl;
 
+    // Campos específicos de Cadastro (que precisam ter o 'required' alternado)
+    const nameInput = document.getElementById('name');
+    const confirmPassInput = document.getElementById('confirm-password');
+    const termsInput = document.getElementById('termos');
 
-    // Ouve o clique na aba "Cadastrar"
+    // --- FUNÇÃO PARA ALTERNAR OBRIGATORIEDADE ---
+    function setRegisterFieldsRequired(isRequired) {
+        if (nameInput) nameInput.required = isRequired;
+        if (confirmPassInput) confirmPassInput.required = isRequired;
+        if (termsInput) termsInput.required = isRequired;
+    }
+
+    // Inicializa como LOGIN (Campos de cadastro NÃO são obrigatórios)
+    setRegisterFieldsRequired(false);
+
+    // --- CLIQUE EM "CADASTRAR" ---
     registerTab.addEventListener('click', () => {
-        // 1. Muda o modo do container
         formContainer.classList.add('register-mode');
         
-        // 2. Troca o 'active' das abas
         loginTab.classList.remove('active');
         registerTab.classList.add('active');
-
-        // 3. Muda o texto do botão
+        
         submitBtn.textContent = 'Criar Conta';
-
-        // 4. Muda a URL do 'action' do formulário
         dynamicForm.action = registerUrl;
+
+        // (CORREÇÃO) Torna os campos obrigatórios
+        setRegisterFieldsRequired(true);
     });
 
-    // Ouve o clique na aba "Entrar"
+    // --- CLIQUE EM "ENTRAR" ---
     loginTab.addEventListener('click', () => {
-        // 1. Muda o modo do container
         formContainer.classList.remove('register-mode');
-
-        // 2. Troca o 'active' das abas
+        
         registerTab.classList.remove('active');
         loginTab.classList.add('active');
-
-        // 3. Muda o texto do botão
+        
         submitBtn.textContent = 'Entrar';
-
-        // 4. Muda a URL do 'action' do formulário
         dynamicForm.action = loginUrl;
+
+        // (CORREÇÃO) Remove a obrigatoriedade
+        setRegisterFieldsRequired(false);
     });
 
 
-    
-    //
-    // !!! IMPORTANTE: O BLOCO 'form.addEventListener('submit', ...)' FOI REMOVIDO !!!
-    //
+    // Listener de submit (vazio) para deixar o formulário enviar
+    dynamicForm.addEventListener('submit', (event) => {
+        // O navegador agora vai validar corretamente
+    });
+
 });
