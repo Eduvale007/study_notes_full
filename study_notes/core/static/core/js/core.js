@@ -396,31 +396,50 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (gridContainer) {
+   if (gridContainer) {
         gridContainer.addEventListener('click', (event) => {
             const deleteBtn = event.target.closest('.delete-btn');
             const expandBtn = event.target.closest('.expand-btn');
             const editBtn = event.target.closest('.edit-btn');
+            
+            // Verifica se clicou em algum botão antes de procurar o card
+            if (!deleteBtn && !expandBtn && !editBtn) return;
+
             const card = event.target.closest('.summary-card');
 
             if (deleteBtn) {
                 const summaryId = card.dataset.id;
                 if (confirm('Tem certeza que quer deletar?')) {
-                    fetch(`/api/delete_summary/${summaryId}/`, { method: 'DELETE', headers: { 'X-CSRFToken': csrfToken } })
+                    fetch(`/api/delete_summary/${summaryId}/`, { 
+                        method: 'DELETE', 
+                        headers: { 'X-CSRFToken': csrfToken } 
+                    })
                     .then(res => res.json())
                     .then(data => {
                         if(data.success) {
-                            const discipline = card.querySelector('.card-discipline-dark').textContent;
+                            // (CORREÇÃO AQUI) Adicionado .trim() para limpar espaços
+                            const discipline = card.querySelector('.card-discipline-dark').textContent.trim();
+                            
                             card.style.opacity = '0';
-                            setTimeout(() => { card.remove(); checkIfDisciplineIsEmpty(discipline); }, 300);
-                        } else { alert('Erro ao deletar.'); }
+                            card.style.transform = 'scale(0.8)';
+                            
+                            setTimeout(() => { 
+                                card.remove(); 
+                                // Agora chama a checagem com o nome limpo
+                                checkIfDisciplineIsEmpty(discipline); 
+                            }, 300);
+                        } else { 
+                            alert('Erro ao deletar.'); 
+                        }
                     });
                 }
-            } else if (expandBtn) {
+            } 
+            else if (expandBtn) {
                 const content = card.dataset.content;
                 if (!content) return alert('Sem conteúdo.');
                 openReadModal(card.querySelector('h4').textContent, content);
-            } else if (editBtn) {
+            } 
+            else if (editBtn) {
                 openEditModal(card);
             }
         });
@@ -466,5 +485,44 @@ document.addEventListener('DOMContentLoaded', () => {
                 icon.classList.replace('ph-moon', 'ph-sun');
             }
         });
+    }
+
+    // --- FUNÇÃO VERIFICAR SE DISCIPLINA ESTÁ VAZIA (CORRIGIDA) ---
+    function checkIfDisciplineIsEmpty(disciplineName) {
+        
+        const allSummaries = gridContainer.querySelectorAll('.summary-card');
+        let disciplineFound = false;
+
+        for (const summary of allSummaries) {
+            // (CORREÇÃO) Adicionamos .trim() aqui também para garantir a comparação exata
+            const cardDiscipline = summary.querySelector('.card-discipline-dark').textContent.trim();
+            
+            if (cardDiscipline === disciplineName) {
+                disciplineFound = true; 
+                break; // Se achou pelo menos um, para e não deleta o link
+            }
+        }
+
+        // Se rodou tudo e não achou nenhum card com essa disciplina...
+        if (!disciplineFound) {
+            // Busca o link na sidebar
+            const linkToRemove = disciplineList.querySelector(`a[data-filter="${disciplineName}"]`);
+            
+            if (linkToRemove) {
+                // Remove o <li> inteiro
+                linkToRemove.parentElement.remove();
+                
+                // Remove da lista de controle
+                existingDisciplines.delete(disciplineName);
+
+                // Se o filtro atual era esse, volta para "Todos"
+                const currentFilter = document.querySelector('.sidebar-nav li.active a');
+                // Verifica se existe filtro ativo antes de tentar acessar dataset
+                if (currentFilter && currentFilter.dataset.filter === disciplineName) {
+                    const todosLink = document.querySelector('.sidebar-nav a[data-filter="Todos"]');
+                    if (todosLink) todosLink.click();
+                }
+            }
+        }
     }
 });
