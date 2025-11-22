@@ -28,6 +28,7 @@ body {
     background-color: var(--bg-body);
     color: var(--text-primary);
     height: 100vh;
+    height: 100dvh;
     overflow: hidden; /* Layout fixo */
 }
 
