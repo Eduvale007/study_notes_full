@@ -16,6 +16,7 @@
     --bg-sidebar: #1a2533;    /* Fundo da Sidebar */
     --bg-surface: #2B2F3A;    /* Fundo de Modais, Inputs e Barra de Busca */
     --bg-hover: #2c3e50;      /* Fundo ao passar o mouse (Sidebar) */
+    --bg-hover-modal:#2c3e50;
     --bg-tag: #34495e;        /* Fundo das Tags */
     
     /* --- BORDAS --- */
@@ -37,6 +38,7 @@
     --primary-color: #3498db; /* Azul Principal */
     --primary-hover: #2980b9; /* Azul Escuro (Hover) */
     --danger-color: #e74c3c;  /* Vermelho (Sair/Deletar) */
+    --danger-color-modal: #e74c3c;
     
     /* --- CORES DOS CARDS (Adesivos) --- */
     --card-blue: #2E86C1;
@@ -51,6 +53,7 @@
     --bg-sidebar: #FFFFFF;    /* Branco */
     --bg-surface: #FFFFFF;    /* Branco */
     --bg-hover:  rgba(0, 0, 0, 0.7);      /* Cinza claro */
+       --bg-hover-modal: rgba(0, 0, 0, 0.1);
     --bg-tag: #E1E1E6;        /* Cinza para tags */
     
     --border-color: #E1E1E6;
@@ -1019,6 +1022,79 @@ i.ph {
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
+}
+
+/* =================================== */
+/* BOTÕES DO MODAL DE EXCLUSÃO
+/* =================================== */
+
+.btn-cancel {
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex: 1;
+}
+.btn-cancel:hover {
+    background-color: var(--bg-hover-modal);
+}
+
+.btn-danger {
+    background-color: var(--danger-color-modal); /* Vermelho */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    flex: 1;
+}
+.btn-danger:hover {
+    background-color: #c0392b; /* Vermelho mais escuro */
+}
+
+/* =================================== */
+/* ESTILO DO CABEÇALHO DO MODAL (Ícone + Avatar)
+/* =================================== */
+
+/* A linha que segura os dois elementos */
+.modal-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px; /* Espaço entre a lixeira e o avatar */
+    margin-bottom: 25px;
+}
+
+/* Círculo em volta do ícone da lixeira */
+.icon-wrapper.danger {
+    width: 64px;
+    height: 64px;
+    background-color: rgba(231, 76, 60, 0.1); /* Fundo vermelho clarinho */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-wrapper.danger i {
+    font-size: 32px;
+    color: var(--danger-color-modal); /* Cor vermelha do tema */
+}
+
+/* Estilo da imagem para parecer um avatar */
+.modal-avatar-img {
+    width: 72px;  /* Tamanho um pouco maior que o ícone para destaque */
+    height: 72px;
+    border-radius: 50%; /* Deixa redondo */
+    object-fit: cover;  /* Garante que a imagem não distorça */
+    border: 4px solid var(--bg-surface); /* Borda da cor do fundo do modal para "recortar" */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15); /* Sombra suave para dar profundidade */
 }
 
 

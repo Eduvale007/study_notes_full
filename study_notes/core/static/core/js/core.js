@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Variável para rastrear o card que está sendo editado ---
     let currentEditCard = null;
+   
 
     // --- ELEMENTOS DO CARD DE BOAS-VINDAS DO BOOKIE ---
     const welcomeCardOverlay = document.getElementById('welcome-card');
@@ -13,6 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const welcomeMessageElement = document.getElementById('welcome-message');
     const userNameElement = document.querySelector('.user-name');
     const bookieImage = document.getElementById('bookie-image'); 
+
+
 
     // --- ELEMENTOS GERAIS ---
     const menuToggleBtn = document.getElementById('menu-toggle-btn');
@@ -396,7 +399,83 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-   if (gridContainer) {
+    // ============================================================
+    // LÓGICA DO MODAL DE DELETAR (Estava faltando isso!)
+    // ============================================================
+    
+    // 1. Pegar os elementos do modal
+    const deleteModalOverlay = document.getElementById('delete-modal');
+    const cancelDeleteBtn = document.getElementById('cancel-delete-btn');
+    const confirmDeleteBtn = document.getElementById('confirm-delete-btn');
+    let cardPendingDelete = null; // Variável para saber qual card apagar
+
+    // 2. Função para abrir o modal
+    function openDeleteModal(card) {
+        cardPendingDelete = card; // Guarda o card na memória
+        if (deleteModalOverlay) {
+            deleteModalOverlay.classList.add('active');
+        }
+    }
+
+    // 3. Função para fechar o modal
+    function closeDeleteModal() {
+        if (deleteModalOverlay) {
+            deleteModalOverlay.classList.remove('active');
+        }
+        cardPendingDelete = null; // Limpa a memória
+    }
+
+    // 4. Listeners dos botões do modal
+    if (deleteModalOverlay) {
+        // Botão Cancelar
+        cancelDeleteBtn.addEventListener('click', closeDeleteModal);
+
+        // Clicar fora para fechar
+        deleteModalOverlay.addEventListener('click', (e) => {
+            if (e.target === deleteModalOverlay) closeDeleteModal();
+        });
+
+       // Botão CONFIRMAR EXCLUSÃO
+        confirmDeleteBtn.addEventListener('click', () => {
+            if (!cardPendingDelete) return;
+
+            const summaryId = cardPendingDelete.dataset.id;
+            const originalText = confirmDeleteBtn.textContent;
+            confirmDeleteBtn.textContent = "Excluindo...";
+
+            fetch(`/api/delete_summary/${summaryId}/`, { 
+                method: 'DELETE', 
+                headers: { 'X-CSRFToken': csrfToken } 
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.success) {
+                    // Cria cópia local para não perder a referência
+                    const cardElement = cardPendingDelete; 
+                    const discipline = cardElement.querySelector('.card-discipline-dark').textContent.trim();
+                    
+                    cardElement.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                    cardElement.style.opacity = '0';
+                    cardElement.style.transform = 'scale(0.8)';
+                    
+                    setTimeout(() => {
+                        cardElement.remove();
+                        checkIfDisciplineIsEmpty(discipline);
+                    }, 300);
+
+                    closeDeleteModal();
+                } else {
+                    alert('Erro ao deletar: ' + data.error);
+                }
+            })
+            .catch(() => alert('Erro de conexão ao deletar.'))
+            .finally(() => {
+                confirmDeleteBtn.textContent = originalText;
+            });
+        });
+    }
+
+    if (gridContainer) {
         gridContainer.addEventListener('click', (event) => {
             const deleteBtn = event.target.closest('.delete-btn');
             const expandBtn = event.target.closest('.expand-btn');
@@ -408,31 +487,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const card = event.target.closest('.summary-card');
 
             if (deleteBtn) {
-                const summaryId = card.dataset.id;
-                if (confirm('Tem certeza que quer deletar?')) {
-                    fetch(`/api/delete_summary/${summaryId}/`, { 
-                        method: 'DELETE', 
-                        headers: { 'X-CSRFToken': csrfToken } 
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        if(data.success) {
-                            // (CORREÇÃO AQUI) Adicionado .trim() para limpar espaços
-                            const discipline = card.querySelector('.card-discipline-dark').textContent.trim();
-                            
-                            card.style.opacity = '0';
-                            card.style.transform = 'scale(0.8)';
-                            
-                            setTimeout(() => { 
-                                card.remove(); 
-                                // Agora chama a checagem com o nome limpo
-                                checkIfDisciplineIsEmpty(discipline); 
-                            }, 300);
-                        } else { 
-                            alert('Erro ao deletar.'); 
-                        }
-                    });
-                }
+                // (ATUALIZADO) Em vez de deletar direto, abre o modal de confirmação
+                openDeleteModal(card);
             } 
             else if (expandBtn) {
                 const content = card.dataset.content;
@@ -525,4 +581,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
+
+  
 });
